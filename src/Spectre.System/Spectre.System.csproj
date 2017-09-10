@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>7</LangVersion>
+  </PropertyGroup>
+  <!-- StyleCop -->
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>../Spectre.System.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="../stylecop.json" Link="stylecop.json" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
