@@ -20,12 +20,12 @@ namespace Spectre.System.IO.Globbing
 
         public GlobParser(IEnvironment environment)
         {
-            _environment = environment;
+            _environment = environment ?? throw new ArgumentNullException(nameof(environment));
         }
 
-        public GlobNode Parse(string pattern, bool caseSensitive)
+        public GlobNode Parse(string pattern, PathComparer comparer)
         {
-            return Parse(new GlobParserContext(pattern, caseSensitive));
+            return Parse(new GlobParserContext(pattern, comparer));
         }
 
         private GlobNode Parse(GlobParserContext context)

@@ -17,7 +17,6 @@ namespace Spectre.System.IO
         private readonly GlobParser _parser;
         private readonly GlobVisitor _visitor;
         private readonly PathComparer _comparer;
-        private readonly IEnvironment _environment;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Globber"/> class.
@@ -30,12 +29,7 @@ namespace Spectre.System.IO
             {
                 throw new ArgumentNullException(nameof(fileSystem));
             }
-            if (environment == null)
-            {
-                throw new ArgumentNullException(nameof(environment));
-            }
 
-            _environment = environment;
             _parser = new GlobParser(environment);
             _visitor = new GlobVisitor(fileSystem, environment);
             _comparer = new PathComparer(environment.Platform.IsUnix());
@@ -45,11 +39,11 @@ namespace Spectre.System.IO
         /// Returns <see cref="Path" /> instances matching the specified pattern.
         /// </summary>
         /// <param name="pattern">The pattern to match.</param>
-        /// <param name="predicate">The predicate used to filter directories based on file system information.</param>
+        /// <param name="settings">The settings.</param>
         /// <returns>
         ///   <see cref="Path" /> instances matching the specified pattern.
         /// </returns>
-        public IEnumerable<Path> Match(string pattern, Func<IDirectory, bool> predicate)
+        public IEnumerable<Path> Match(string pattern, GlobberSettings settings)
         {
             if (pattern == null)
             {
@@ -59,14 +53,17 @@ namespace Spectre.System.IO
             {
                 return Enumerable.Empty<Path>();
             }
+            
+            // Make sure we have settings.
+            settings = settings ?? new GlobberSettings();
 
             // Parse the pattern into an AST.
-            var root = _parser.Parse(pattern, _environment.Platform.IsUnix());
-
+            var root = _parser.Parse(pattern, settings.Comparer ?? _comparer);
+            
             // Visit all nodes in the parsed patterns and filter the result.
-            return _visitor.Walk(root, predicate)
+            return _visitor.Walk(root, settings)
                 .Select(x => x.Path)
-                .Distinct(_comparer);
+                .Distinct(settings.Comparer ?? _comparer);
         }
     }
 }

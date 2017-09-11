@@ -2,7 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System;
 using System.Collections.Generic;
 
 namespace Spectre.System.IO.Globbing
@@ -10,24 +9,22 @@ namespace Spectre.System.IO.Globbing
     internal sealed class GlobVisitorContext
     {
         private readonly LinkedList<string> _pathParts;
-        private readonly Func<IDirectory, bool> _predicate;
+        private readonly GlobberSettings _settings;
 
         internal DirectoryPath Path { get; private set; }
 
         public IFileSystem FileSystem { get; }
-
         public IEnvironment Environment { get; }
-
         public List<IFileSystemInfo> Results { get; }
 
         public GlobVisitorContext(
             IFileSystem fileSystem,
             IEnvironment environment,
-            Func<IDirectory, bool> predicate)
+            GlobberSettings settings)
         {
             FileSystem = fileSystem;
             Environment = environment;
-            _predicate = predicate;
+            _settings = settings;
             Results = new List<IFileSystemInfo>();
             _pathParts = new LinkedList<string>();
         }
@@ -63,11 +60,8 @@ namespace Spectre.System.IO.Globbing
 
         public bool ShouldTraverse(IDirectory info)
         {
-            if (_predicate != null)
-            {
-                return _predicate(info);
-            }
-            return true;
+            return _settings.Predicate == null || 
+                   _settings.Predicate(info);
         }
     }
 }

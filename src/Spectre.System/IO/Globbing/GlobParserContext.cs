@@ -16,13 +16,13 @@ namespace Spectre.System.IO.Globbing
 
         public RegexOptions Options { get; }
 
-        public GlobParserContext(string pattern, bool caseSensitive)
+        public GlobParserContext(string pattern, PathComparer comparer)
         {
             _tokenizer = new GlobTokenizer(pattern);
             CurrentToken = null;
             Options = RegexOptions.Compiled | RegexOptions.Singleline;
 
-            if (!caseSensitive)
+            if (!comparer.IsCaseSensitive)
             {
                 Options |= RegexOptions.IgnoreCase;
             }

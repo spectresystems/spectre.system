@@ -182,10 +182,12 @@ namespace Spectre.System.Tests.Unit.IO
                 {
                     // Given
                     var fixture = new GlobberFixture();
-                    var predicate = new Func<IFileSystemInfo, bool>(i => i.Path.FullPath != "/Working/Bar");
 
                     // When
-                    var result = fixture.Match("./**/Qux.h", predicate);
+                    var result = fixture.Match("./**/Qux.h", new GlobberSettings
+                    {
+                        Predicate = i => i.Path.FullPath != "/Working/Bar"
+                    });
 
                     // Then
                     result.Length.ShouldBe(1);
@@ -197,10 +199,12 @@ namespace Spectre.System.Tests.Unit.IO
                 {
                     // Given
                     var fixture = new GlobberFixture();
-                    var predicate = new Func<IFileSystemInfo, bool>(i => i.Path.FullPath != "/Working/Bar");
 
                     // When
-                    var result = fixture.Match("/Working/Bar/Qux.h", predicate);
+                    var result = fixture.Match("/Working/Bar/Qux.h", new GlobberSettings
+                    {
+                        Predicate = i => i.Path.FullPath != "/Working/Bar"
+                    });
 
                     // Then
                     result.Length.ShouldBe(0);
@@ -211,10 +215,12 @@ namespace Spectre.System.Tests.Unit.IO
                 {
                     // Given
                     var fixture = new GlobberFixture();
-                    var predicate = new Func<IFileSystemInfo, bool>(i => i.Path.FullPath != "/Working/Bar");
 
                     // When
-                    var result = fixture.Match("/Working/Bar", predicate);
+                    var result = fixture.Match("/Working/Bar", new GlobberSettings
+                    {
+                        Predicate = i => i.Path.FullPath != "/Working/Bar"
+                    });
 
                     // Then
                     result.Length.ShouldBe(0);
@@ -686,16 +692,10 @@ namespace Spectre.System.Tests.Unit.IO
                 Environment.WorkingDirectory = path;
             }
 
-            public Path[] Match(string pattern)
-            {
-                return Match(pattern, null);
-            }
-
-            public Path[] Match(string pattern,
-                Func<IFileSystemInfo, bool> predicate)
+            public Path[] Match(string pattern, GlobberSettings settings = null)
             {
                 return new Globber(FileSystem, Environment)
-                    .Match(pattern, predicate)
+                    .Match(pattern, settings)
                     .ToArray();
             }
         }

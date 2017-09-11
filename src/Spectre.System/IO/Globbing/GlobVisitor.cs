@@ -16,13 +16,13 @@ namespace Spectre.System.IO.Globbing
 
         public GlobVisitor(IFileSystem fileSystem, IEnvironment environment)
         {
-            _fileSystem = fileSystem;
-            _environment = environment;
+            _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+            _environment = environment ?? throw new ArgumentNullException(nameof(environment));
         }
 
-        public IEnumerable<IFileSystemInfo> Walk(GlobNode node, Func<IDirectory, bool> predicate)
+        public IEnumerable<IFileSystemInfo> Walk(GlobNode node, GlobberSettings settings)
         {
-            var context = new GlobVisitorContext(_fileSystem, _environment, predicate);
+            var context = new GlobVisitorContext(_fileSystem, _environment, settings);
             node.Accept(this, context);
             return context.Results;
         }
@@ -33,8 +33,7 @@ namespace Spectre.System.IO.Globbing
             if (directory.Exists)
             {
                 // Check if folders match.
-                var candidates = new List<IFileSystemInfo>();
-                candidates.Add(directory);
+                var candidates = new List<IFileSystemInfo> { directory };
                 candidates.AddRange(FindCandidates(directory.Path, node, context, SearchScope.Recursive, includeFiles: false));
 
                 foreach (var candidate in candidates)
