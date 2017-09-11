@@ -4,8 +4,10 @@
 [Tt]emp/
 [Ll]ib/
 [Pp]ackages/
-/[Aa]rtifacts/
-/[Tt]ools/
+
+# Build
+/.artifacts/
+/tools/
 
 # .NET Core CLI
 /.dotnet/

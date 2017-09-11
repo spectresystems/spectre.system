@@ -53,13 +53,13 @@ namespace Spectre.System.IO
             {
                 return Enumerable.Empty<Path>();
             }
-            
+
             // Make sure we have settings.
             settings = settings ?? new GlobberSettings();
 
             // Parse the pattern into an AST.
             var root = _parser.Parse(pattern, settings.Comparer ?? _comparer);
-            
+
             // Visit all nodes in the parsed patterns and filter the result.
             return _visitor.Walk(root, settings)
                 .Select(x => x.Path)

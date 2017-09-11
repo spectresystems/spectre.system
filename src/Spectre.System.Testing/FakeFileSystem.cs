@@ -16,7 +16,7 @@ namespace Spectre.System.Testing
 
         public IFileProvider File => _fileProvider;
         public IDirectoryProvider Directory => _directoryProvider;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FakeFileSystem"/> class.
         /// </summary>
@@ -24,7 +24,7 @@ namespace Spectre.System.Testing
         public FakeFileSystem(IEnvironment environment)
         {
             var tree = new FileSystemTree(environment);
-            
+
             _fileProvider = new FakeFileProvider(tree);
             _directoryProvider = new FakeDirectoryProvider(tree);
         }

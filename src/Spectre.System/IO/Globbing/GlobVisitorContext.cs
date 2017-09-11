@@ -9,12 +9,12 @@ namespace Spectre.System.IO.Globbing
     internal sealed class GlobVisitorContext
     {
         private readonly LinkedList<string> _pathParts;
-        private readonly GlobberSettings _settings;
 
         internal DirectoryPath Path { get; private set; }
 
         public IFileSystem FileSystem { get; }
         public IEnvironment Environment { get; }
+        public GlobberSettings Settings { get; }
         public List<IFileSystemInfo> Results { get; }
 
         public GlobVisitorContext(
@@ -22,11 +22,12 @@ namespace Spectre.System.IO.Globbing
             IEnvironment environment,
             GlobberSettings settings)
         {
+            _pathParts = new LinkedList<string>();
+
             FileSystem = fileSystem;
             Environment = environment;
-            _settings = settings;
+            Settings = settings;
             Results = new List<IFileSystemInfo>();
-            _pathParts = new LinkedList<string>();
         }
 
         public void AddResult(IFileSystemInfo path)
@@ -60,8 +61,8 @@ namespace Spectre.System.IO.Globbing
 
         public bool ShouldTraverse(IDirectory info)
         {
-            return _settings.Predicate == null || 
-                   _settings.Predicate(info);
+            return Settings.Predicate == null ||
+                   Settings.Predicate(info);
         }
     }
 }

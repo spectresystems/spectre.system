@@ -5,6 +5,21 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7</LangVersion>
   </PropertyGroup>
+
+  <!-- Package-->
+  <PropertyGroup>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Copyright>Spectre Systems AB</Copyright>
+    <Authors>Patrik Svensson</Authors>
+    <Company>Patrik Svensson</Company>
+    <PackageLicenseUrl>https://github.com/spectresystems/spectre.system/blob/develop/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://github.com/spectresystems/graphics/raw/master/png/logo-medium.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/spectresystems/spectre.system</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>File System;IO;Globbing;Environment</PackageTags>
+    <Description>A library containing cross platform abstractions for environments and IO.</Description>
+  </PropertyGroup>
+
   <!-- StyleCop -->
   <PropertyGroup>
     <CodeAnalysisRuleSet>../Spectre.System.ruleset</CodeAnalysisRuleSet>
@@ -15,4 +30,5 @@
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+
 </Project>
