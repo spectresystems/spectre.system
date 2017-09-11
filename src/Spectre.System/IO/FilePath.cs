@@ -66,10 +66,9 @@ namespace Spectre.System.IO
         /// Gets the file extension.
         /// </summary>
         /// <returns>The file extension.</returns>
-        public string GetExtension()
+        public FileExtension GetExtension()
         {
-            var extension = global::System.IO.Path.GetExtension(FullPath);
-            return string.IsNullOrWhiteSpace(extension) ? null : extension;
+            return FileExtension.Parse(this);
         }
 
         /// <summary>
@@ -77,9 +76,9 @@ namespace Spectre.System.IO
         /// </summary>
         /// <param name="extension">The new extension.</param>
         /// <returns>A new <see cref="FilePath"/> with a new extension.</returns>
-        public FilePath ChangeExtension(string extension)
+        public FilePath ChangeExtension(FileExtension extension)
         {
-            return new FilePath(global::System.IO.Path.ChangeExtension(FullPath, extension));
+            return new FilePath(FileExtension.Change(FullPath, extension));
         }
 
         /// <summary>
@@ -87,17 +86,18 @@ namespace Spectre.System.IO
         /// </summary>
         /// <param name="extension">The extension.</param>
         /// <returns>A new <see cref="FilePath"/> with an appended extension.</returns>
-        public FilePath AppendExtension(string extension)
+        public FilePath AppendExtension(FileExtension extension)
         {
-            if (extension == null)
-            {
-                throw new ArgumentNullException(nameof(extension));
-            }
-            if (!extension.StartsWith(".", StringComparison.OrdinalIgnoreCase))
-            {
-                extension = string.Concat(".", extension);
-            }
-            return new FilePath(string.Concat(FullPath, extension));
+            return new FilePath(FileExtension.Append(FullPath, extension));
+        }
+        
+        /// <summary>
+        /// Removes a file extension from the path.
+        /// </summary>
+        /// <returns>A new <see cref="FilePath"/> without the extension.</returns>
+        public FilePath RemoveExtension()
+        {
+            return new FilePath(FileExtension.Remove(FullPath));
         }
 
         /// <summary>

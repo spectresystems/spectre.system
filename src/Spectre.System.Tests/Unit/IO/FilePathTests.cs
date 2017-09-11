@@ -31,10 +31,10 @@ namespace Spectre.System.Tests.Unit.IO
         public sealed class TheGetExtensionMethod
         {
             [Theory]
-            [InlineData("assets/shaders/basic.frag", ".frag")]
-            [InlineData("assets/shaders/basic.frag/test.vert", ".vert")]
-            [InlineData("assets/shaders/basic", null)]
-            [InlineData("assets/shaders/basic.frag/test", null)]
+            [InlineData("foo/bar.baz", "baz")]
+            [InlineData("foo/bar.baz/qux.flob", "flob")]
+            [InlineData("foo/bar", "")]
+            [InlineData("foo/bar.baz/qux", "")]
             public void Can_Get_Extension(string fullPath, string expected)
             {
                 // Given
@@ -44,7 +44,7 @@ namespace Spectre.System.Tests.Unit.IO
                 var result = path.GetExtension();
 
                 // Then
-                result.ShouldBe(expected);
+                result.Name.ShouldBe(expected);
             }
         }
 
@@ -86,7 +86,7 @@ namespace Spectre.System.Tests.Unit.IO
                 var path = new FilePath("temp/hello.txt");
 
                 // When
-                var result = path.ChangeExtension(".dat");
+                var result = path.ChangeExtension(new FileExtension(".dat"));
 
                 // Then
                 result.FullPath.ShouldBe("temp/hello.dat");
@@ -96,32 +96,66 @@ namespace Spectre.System.Tests.Unit.IO
         public sealed class TheAppendExtensionMethod
         {
             [Fact]
-            public void Should_Throw_If_Extension_Is_Null()
+            public void Should_Return_Same_Path_If_Providing_Null_Extension()
             {
                 // Given
                 var path = new FilePath("temp/hello.txt");
 
                 // When
-                var result = Record.Exception(() => path.AppendExtension(null));
+                var result = path.AppendExtension(null);
 
                 // Then
-                result.ShouldBeArgumentNullException("extension");
+                result.FullPath.ShouldBe("temp/hello.txt");
+            }
+            
+            [Theory]
+            [InlineData("")]
+            [InlineData(".")]
+            public void Should_Return_Same_Path_If_Providing_Empty_Extension(string extension)
+            {
+                // Given
+                var path = new FilePath("temp/hello.txt");
+
+                // When
+                var result = path.AppendExtension(new FileExtension(extension));
+
+                // Then
+                result.FullPath.ShouldBe("temp/hello.txt");
             }
 
             [Theory]
             [InlineData("dat", "temp/hello.txt.dat")]
             [InlineData(".dat", "temp/hello.txt.dat")]
-            public void Can_Append_Extension_To_Path(string extension, string expected)
+            public void Should_Append_Extension_To_Path(string input, string expected)
             {
                 // Given
                 var path = new FilePath("temp/hello.txt");
 
                 // When
-                var result = path.AppendExtension(extension);
+                var result = path.AppendExtension(new FileExtension(input));
 
                 // Then
                 result.FullPath.ShouldBe(expected);
             }
+        }
+
+        public sealed class TheRemoveExtensionMethod
+        {
+            [Theory]
+            [InlineData("temp/hello", "temp/hello")]
+            [InlineData("temp/hello.txt", "temp/hello")]
+            [InlineData("temp/hello.txt.dat", "temp/hello.txt")]
+            public void Can_Append_Extension_To_Path(string input, string expected)
+            {
+                // Given
+                var path = new FilePath(input);
+
+                // When
+                var result = path.RemoveExtension();
+
+                // Then
+                result.FullPath.ShouldBe(expected);
+            }    
         }
 
         public sealed class TheGetFilenameMethod
