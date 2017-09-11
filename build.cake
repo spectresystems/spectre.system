@@ -49,6 +49,12 @@ Task("Package")
         OutputDirectory = "./.artifacts",
         MSBuildSettings = settings
     });
+
+    DotNetCorePack("./src/Spectre.System.sln", new DotNetCorePackSettings {
+        Configuration = "Release",
+        OutputDirectory = "./.artifacts",
+        MSBuildSettings = settings
+    });
 });
 
 Task("Default")
