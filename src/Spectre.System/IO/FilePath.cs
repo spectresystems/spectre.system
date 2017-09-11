@@ -90,7 +90,7 @@ namespace Spectre.System.IO
         {
             return new FilePath(FileExtension.Append(FullPath, extension));
         }
-        
+
         /// <summary>
         /// Removes a file extension from the path.
         /// </summary>

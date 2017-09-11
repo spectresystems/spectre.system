@@ -22,8 +22,8 @@ namespace Spectre.System.IO
 
         public static FileExtension Parse(FilePath path)
         {
-            return path == null 
-                ? new FileExtension(string.Empty) 
+            return path == null
+                ? new FileExtension(string.Empty)
                 : new FileExtension(global::System.IO.Path.GetExtension(path.FullPath));
         }
 
@@ -31,7 +31,7 @@ namespace Spectre.System.IO
         {
             return Append(Remove(path), extension);
         }
-        
+
         internal static string Append(string path, FileExtension extension)
         {
             if (extension == null)
@@ -44,7 +44,7 @@ namespace Spectre.System.IO
             }
             return string.Concat(path, ".", extension.Name);
         }
-        
+
         internal static string Remove(string path)
         {
             return global::System.IO.Path.ChangeExtension(path, string.Empty).TrimEnd('.');
