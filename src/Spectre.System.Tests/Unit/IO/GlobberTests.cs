@@ -625,7 +625,7 @@ namespace Spectre.System.Tests.Unit.IO
 
             private void PrepareWindowsFixture()
             {
-                Environment = FakeEnvironment.CreateWindowsEnvironment();
+                Environment = new FakeEnvironment(PlatformFamily.Windows);
                 FileSystem = new FakeFileSystem(Environment);
 
                 // Directories
@@ -650,7 +650,7 @@ namespace Spectre.System.Tests.Unit.IO
 
             private void PrepareUnixFixture()
             {
-                Environment = FakeEnvironment.CreateUnixEnvironment();
+                Environment = new FakeEnvironment(PlatformFamily.Linux);
                 FileSystem = new FakeFileSystem(Environment);
 
                 // Directories

@@ -43,32 +43,16 @@ namespace Spectre.System.Testing
         public FakeEnvironment(PlatformFamily family, bool is64Bit = true)
         {
             Platform = new FakePlatform(family, is64Bit);
-        }
-
-        /// <summary>
-        /// Creates a Unix environment.
-        /// </summary>
-        /// <param name="is64Bit">if set to <c>true</c> the platform is 64 bit.</param>
-        /// <returns>A Unix environment.</returns>
-        public static FakeEnvironment CreateUnixEnvironment(bool is64Bit = true)
-        {
-            var environment = new FakeEnvironment(PlatformFamily.Linux, is64Bit);
-            environment.WorkingDirectory = new DirectoryPath("/Working");
-            environment.ApplicationRoot = "/Working/bin";
-            return environment;
-        }
-
-        /// <summary>
-        /// Creates a Windows environment.
-        /// </summary>
-        /// <param name="is64Bit">if set to <c>true</c> the platform is 64 bit.</param>
-        /// <returns>A Windows environment.</returns>
-        public static FakeEnvironment CreateWindowsEnvironment(bool is64Bit = true)
-        {
-            var environment = new FakeEnvironment(PlatformFamily.Windows, is64Bit);
-            environment.WorkingDirectory = new DirectoryPath("C:/Working");
-            environment.ApplicationRoot = "C:/Working/bin";
-            return environment;
+            if (Platform.IsUnix())
+            {
+                WorkingDirectory = new DirectoryPath("/Working");
+                ApplicationRoot = "/working/bin";
+            }
+            else
+            {
+                WorkingDirectory = new DirectoryPath("C:/Working");
+                ApplicationRoot = "C:/Working/bin";
+            }
         }
 
         /// <summary>

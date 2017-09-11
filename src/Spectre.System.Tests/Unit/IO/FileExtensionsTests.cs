@@ -150,7 +150,7 @@ namespace Spectre.System.Tests.Unit.IO
             public void Should_Return_Empty_List_If_File_Contains_No_Lines()
             {
                 // Given
-                var environment = FakeEnvironment.CreateUnixEnvironment();
+                var environment = new FakeEnvironment(PlatformFamily.Linux);
                 var fileSystem = new FakeFileSystem(environment);
                 var file = fileSystem.CreateFile("text.txt");
 
@@ -165,7 +165,7 @@ namespace Spectre.System.Tests.Unit.IO
             public void Should_Read_File_With_Single_Line_Correctly()
             {
                 // Given
-                var environment = FakeEnvironment.CreateUnixEnvironment();
+                var environment = new FakeEnvironment(PlatformFamily.Linux);
                 var fileSystem = new FakeFileSystem(environment);
                 var file = fileSystem.CreateFile("text.txt").SetContent("Hello World");
 
@@ -180,7 +180,7 @@ namespace Spectre.System.Tests.Unit.IO
             public void Should_Read_File_With_Multiple_Lines_Correctly()
             {
                 // Given
-                var environment = FakeEnvironment.CreateUnixEnvironment();
+                var environment = new FakeEnvironment(PlatformFamily.Linux);
                 var fileSystem = new FakeFileSystem(environment);
                 var content = new StringBuilder();
                 content.AppendLine("1");
