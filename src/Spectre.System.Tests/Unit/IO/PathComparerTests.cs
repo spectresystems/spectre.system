@@ -17,12 +17,15 @@ namespace Spectre.System.Tests.Unit.IO
             [InlineData(false)]
             public void Same_Asset_Instances_Is_Considered_Equal(bool isCaseSensitive)
             {
-                // Given, When
+                // Given
                 var comparer = new PathComparer(isCaseSensitive);
                 var path = new FilePath("shaders/basic.vert");
+                
+                // When
+                var result = comparer.Equals(path, path);
 
                 // Then
-                Assert.True(comparer.Equals(path, path));
+                result.ShouldBeTrue();
             }
 
             [Theory]
@@ -37,7 +40,7 @@ namespace Spectre.System.Tests.Unit.IO
                 var result = comparer.Equals(null, null);
 
                 // Then
-                Assert.True(result);
+                result.ShouldBeTrue();
             }
 
             [Theory]
@@ -52,7 +55,7 @@ namespace Spectre.System.Tests.Unit.IO
                 var result = comparer.Equals(null, new FilePath("test.txt"));
 
                 // Then
-                Assert.False(result);
+                result.ShouldBeFalse();
             }
 
             [Theory]
@@ -60,14 +63,18 @@ namespace Spectre.System.Tests.Unit.IO
             [InlineData(false)]
             public void Same_Paths_Are_Considered_Equal(bool isCaseSensitive)
             {
-                // Given, When
+                // Given
                 var comparer = new PathComparer(isCaseSensitive);
                 var first = new FilePath("shaders/basic.vert");
                 var second = new FilePath("shaders/basic.vert");
+                
+                // When
+                var result1 = comparer.Equals(first, second);
+                var result2 = comparer.Equals(second, first);
 
                 // Then
-                Assert.True(comparer.Equals(first, second));
-                Assert.True(comparer.Equals(second, first));
+                result1.ShouldBeTrue();
+                result2.ShouldBeTrue();
             }
 
             [Theory]
@@ -75,14 +82,18 @@ namespace Spectre.System.Tests.Unit.IO
             [InlineData(false)]
             public void Different_Paths_Are_Not_Considered_Equal(bool isCaseSensitive)
             {
-                // Given, When
+                // Given
                 var comparer = new PathComparer(isCaseSensitive);
                 var first = new FilePath("shaders/basic.vert");
                 var second = new FilePath("shaders/basic.frag");
+                
+                // When
+                var result1 = comparer.Equals(first, second);
+                var result2 = comparer.Equals(second, first); 
 
                 // Then
-                Assert.False(comparer.Equals(first, second));
-                Assert.False(comparer.Equals(second, first));
+                result1.ShouldBeFalse();
+                result2.ShouldBeFalse();
             }
 
             [Theory]
@@ -90,14 +101,18 @@ namespace Spectre.System.Tests.Unit.IO
             [InlineData(false, true)]
             public void Same_Paths_But_Different_Casing_Are_Considered_Equal_Depending_On_Case_Sensitivity(bool isCaseSensitive, bool expected)
             {
-                // Given, When
+                // Given
                 var comparer = new PathComparer(isCaseSensitive);
                 var first = new FilePath("shaders/basic.vert");
                 var second = new FilePath("SHADERS/BASIC.VERT");
+                
+                // When
+                var result1 = comparer.Equals(first, second);
+                var result2 = comparer.Equals(second, first);
 
                 // Then
-                Assert.Equal(expected, comparer.Equals(first, second));
-                Assert.Equal(expected, comparer.Equals(second, first));
+                result1.ShouldBe(expected);
+                result2.ShouldBe(expected);
             }
         }
 

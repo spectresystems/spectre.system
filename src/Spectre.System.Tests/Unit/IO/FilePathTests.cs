@@ -232,8 +232,8 @@ namespace Spectre.System.Tests.Unit.IO
                     var result = Record.Exception(() => path.MakeAbsolute(directory));
 
                     // Then
-                    Assert.IsType<InvalidOperationException>(result);
-                    Assert.Equal("Cannot make a file path absolute with a relative directory path.", result.Message);
+                    result.ShouldBeOfType<InvalidOperationException>()
+                        .And(ex => ex.Message.ShouldBe("Cannot make a file path absolute with a relative directory path."));
                 }
 
                 [Fact]
@@ -304,8 +304,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new DirectoryPath(to)));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Paths must share a common prefix.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
                     }
 
                     [WindowsFact]
@@ -331,8 +331,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new DirectoryPath("C:/D/E/F")));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Source path must be an absolute path.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
                     }
 
                     [WindowsFact]
@@ -345,8 +345,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new DirectoryPath("D")));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Target path must be an absolute path.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
                     }
                 }
 
@@ -384,8 +384,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new DirectoryPath(to)));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Paths must share a common prefix.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
                     }
 
                     [Fact]
@@ -411,8 +411,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new DirectoryPath("/C/D/E/F")));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Source path must be an absolute path.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
                     }
 
                     [Fact]
@@ -425,8 +425,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new DirectoryPath("D")));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Target path must be an absolute path.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
                     }
                 }
             }
@@ -468,8 +468,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new FilePath(to)));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Paths must share a common prefix.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
                     }
 
                     [WindowsFact]
@@ -495,8 +495,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new FilePath("C:/D/E/F/hello.txt")));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Source path must be an absolute path.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
                     }
 
                     [WindowsFact]
@@ -509,8 +509,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new FilePath("D/hello.txt")));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Target path must be an absolute path.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
                     }
                 }
 
@@ -549,8 +549,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new FilePath(to)));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Paths must share a common prefix.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
                     }
 
                     [Fact]
@@ -576,8 +576,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new FilePath("/C/D/E/F/hello.txt")));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Source path must be an absolute path.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
                     }
 
                     [Fact]
@@ -590,8 +590,8 @@ namespace Spectre.System.Tests.Unit.IO
                         var result = Record.Exception(() => path.GetRelativePath(new FilePath("D/hello.txt")));
 
                         // Then
-                        Assert.IsType<InvalidOperationException>(result);
-                        Assert.Equal("Target path must be an absolute path.", result.Message);
+                        result.ShouldBeOfType<InvalidOperationException>()
+                            .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
                     }
                 }
             }

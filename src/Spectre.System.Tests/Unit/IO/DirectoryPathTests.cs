@@ -129,11 +129,25 @@ namespace Spectre.System.Tests.Unit.IO
 
         public sealed class TheCombineWithDirectoryPathMethod
         {
+            public sealed class OnWindows
+            {
+                [Theory]
+                [InlineData("c:/assets/shaders/", "simple", "c:/assets/shaders/simple")]
+                [InlineData("c:/", "simple", "c:/simple")]
+                public void Should_Combine_Paths(string first, string second, string expected)
+                {
+                    // Given
+                    var path = new DirectoryPath(first);
+
+                    // When
+                    var result = path.Combine(new DirectoryPath(second));
+
+                    // Then
+                    result.FullPath.ShouldBe(expected);
+                }
+            }
+            
             [Theory]
-#if !UNIX
-            [InlineData("c:/assets/shaders/", "simple", "c:/assets/shaders/simple")]
-            [InlineData("c:/", "simple", "c:/simple")]
-#endif
             [InlineData("assets/shaders", "simple", "assets/shaders/simple")]
             [InlineData("assets/shaders/", "simple", "assets/shaders/simple")]
             [InlineData("/assets/shaders/", "simple", "/assets/shaders/simple")]

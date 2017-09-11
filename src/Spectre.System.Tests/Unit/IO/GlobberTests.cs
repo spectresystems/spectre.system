@@ -72,8 +72,8 @@ namespace Spectre.System.Tests.Unit.IO
                         fixture.Match("//Foo/Bar/Qux.c"));
 
                     // Then
-                    Assert.IsType<NotSupportedException>(result);
-                    Assert.Equal("UNC paths are not supported.", result.Message);
+                    result.ShouldBeOfType<NotSupportedException>()
+                        .And(ex => ex.Message.ShouldBe("UNC paths are not supported."));
                 }
 
                 [WindowsFact]
@@ -304,11 +304,8 @@ namespace Spectre.System.Tests.Unit.IO
                 var result = Record.Exception(() => fixture.Match("/Working/Foo/**/../Foo/Bar/Qux.c"));
 
                 // Then
-                Assert.NotNull(result);
-                Assert.IsType<NotSupportedException>(result);
-                Assert.Equal(
-                    "Visiting a parent that is a recursive wildcard is not supported.",
-                    result.Message);
+                result.ShouldBeOfType<NotSupportedException>()
+                    .And(ex => ex.Message.ShouldBe("Visiting a parent that is a recursive wildcard is not supported."));
             }
 
             [Fact]

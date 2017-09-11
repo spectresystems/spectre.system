@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
-using System.Globalization;
-using System.Linq;
 
 namespace Spectre.System.IO
 {
@@ -14,8 +12,6 @@ namespace Spectre.System.IO
     /// </summary>
     public abstract class Path
     {
-        private static readonly char[] InvalidPathCharacters;
-
         /// <summary>
         /// Gets the full path.
         /// </summary>
@@ -51,16 +47,6 @@ namespace Spectre.System.IO
                 throw new ArgumentException("Path cannot be empty.", nameof(path));
             }
 
-            // Validate the path.
-            foreach (var character in path)
-            {
-                if (InvalidPathCharacters.Contains(character))
-                {
-                    const string format = "Illegal characters in path ({0}).";
-                    throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, format, character), nameof(path));
-                }
-            }
-
             FullPath = path.Replace('\\', '/').Trim();
             FullPath = FullPath == "./" ? string.Empty : FullPath;
 
@@ -73,12 +59,10 @@ namespace Spectre.System.IO
             // Remove trailing slashes.
             FullPath = FullPath.TrimEnd('/', '\\');
 
-#if !UNIX
             if (FullPath.EndsWith(":", StringComparison.OrdinalIgnoreCase))
             {
                 FullPath = string.Concat(FullPath, "/");
             }
-#endif
 
             // Relative path?
             IsRelative = !global::System.IO.Path.IsPathRooted(FullPath);
@@ -89,11 +73,6 @@ namespace Spectre.System.IO
             {
                 Segments[0] = "/" + Segments[0];
             }
-        }
-
-        static Path()
-        {
-            InvalidPathCharacters = global::System.IO.Path.GetInvalidPathChars().Concat(new[] { '*', '?' }).ToArray();
         }
 
         /// <summary>

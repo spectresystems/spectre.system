@@ -2,7 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System;
 using Shouldly;
 using Spectre.System.IO;
 using Xunit;
@@ -44,9 +43,7 @@ namespace Spectre.System.Tests.Unit.IO
                 var result = Record.Exception(() => new TestingPath(fullPath));
 
                 // Then
-                Assert.IsType<ArgumentException>(result);
-                Assert.Equal("path", ((ArgumentException)result).ParamName);
-                Assert.Equal($"Path cannot be empty.", result.Message?.SplitLines()[0]);
+                result.ShouldBeArgumentException("path", "Path cannot be empty.");
             }
 
             [Fact]
@@ -87,30 +84,6 @@ namespace Spectre.System.Tests.Unit.IO
 
                 // Then
                 path.FullPath.ShouldBe("my awesome shaders/basic");
-            }
-
-            [Fact]
-            public void Should_Throw_If_Path_Contains_Illegal_Characters()
-            {
-                // Given
-                var result = Record.Exception(() => new TestingPath("hello/**/world.txt"));
-
-                // Then
-                Assert.IsType<ArgumentException>(result);
-                Assert.Equal("path", ((ArgumentException)result).ParamName);
-                Assert.Equal($"Illegal characters in path (*).", result.Message?.SplitLines()[0]);
-            }
-
-            [WindowsFact]
-            public void Should_Throw_If_Path_Contains_Illegal_Characters_Non_GlobberSymbol()
-            {
-                // Given
-                var result = Record.Exception(() => new TestingPath("hello/A|B/world.txt"));
-
-                // Then
-                Assert.IsType<ArgumentException>(result);
-                Assert.Equal("path", ((ArgumentException)result).ParamName);
-                Assert.Equal($"Illegal characters in path (|).", result.Message?.SplitLines()[0]);
             }
 
             [Theory]
