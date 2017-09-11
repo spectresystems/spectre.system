@@ -10,13 +10,31 @@ namespace Spectre.System.IO
     public sealed class FileSystem : IFileSystem
     {
         /// <summary>
+        /// Gets the <see cref="IFileProvider"/> belonging to this file system.
+        /// </summary>
+        /// <returns>The <see cref="IFileProvider" /> instance.</returns>
+        public IFileProvider File { get; }
+
+        /// <summary>
+        /// Gets the <see cref="IDirectoryProvider"/> belonging to this file system.
+        /// </summary>
+        /// <returns>The <see cref="IDirectoryProvider" /> instance.</returns>
+        public IDirectoryProvider Directory { get; }
+
+        public FileSystem()
+        {
+            File = new FileProvider();
+            Directory = new DirectoryProvider();
+        }
+
+        /// <summary>
         /// Gets a <see cref="IFile" /> instance representing the specified path.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <returns>A <see cref="IFile" /> instance representing the specified path.</returns>
         public IFile GetFile(FilePath path)
         {
-            return new File(path);
+            return File.Get(path);
         }
 
         /// <summary>
@@ -26,7 +44,7 @@ namespace Spectre.System.IO
         /// <returns>A <see cref="IDirectory" /> instance representing the specified path.</returns>
         public IDirectory GetDirectory(DirectoryPath path)
         {
-            return new Directory(path);
+            return Directory.Get(path);
         }
     }
 }

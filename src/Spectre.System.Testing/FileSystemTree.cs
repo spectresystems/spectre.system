@@ -11,13 +11,13 @@ using Spectre.System.IO;
 
 namespace Spectre.System.Testing
 {
-    internal sealed class FakeFileSystemTree
+    internal sealed class FileSystemTree
     {
         private readonly FakeDirectory _root;
 
         public PathComparer Comparer { get; }
 
-        public FakeFileSystemTree(IEnvironment environment)
+        public FileSystemTree(IEnvironment environment)
         {
             if (environment == null)
             {

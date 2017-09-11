@@ -29,20 +29,20 @@ namespace Spectre.System.IO.Globbing
 
         public void VisitRecursiveWildcardSegment(RecursiveWildcardSegment node, GlobVisitorContext context)
         {
-            var path = context.FileSystem.GetDirectory(context.Path);
-            if (context.FileSystem.Exist(path.Path))
+            var directory = context.FileSystem.GetDirectory(context.Path);
+            if (directory.Exists)
             {
                 // Check if folders match.
                 var candidates = new List<IFileSystemInfo>();
-                candidates.Add(path);
-                candidates.AddRange(FindCandidates(path.Path, node, context, SearchScope.Recursive, includeFiles: false));
+                candidates.Add(directory);
+                candidates.AddRange(FindCandidates(directory.Path, node, context, SearchScope.Recursive, includeFiles: false));
 
                 foreach (var candidate in candidates)
                 {
                     var pushed = false;
                     if (context.Path.FullPath != candidate.Path.FullPath)
                     {
-                        context.Push(candidate.Path.FullPath.Substring(path.Path.FullPath.Length + 1));
+                        context.Push(candidate.Path.FullPath.Substring(directory.Path.FullPath.Length + 1));
                         pushed = true;
                     }
 
@@ -162,12 +162,12 @@ namespace Spectre.System.IO.Globbing
 
         public void VisitWildcardSegmentNode(WildcardSegment node, GlobVisitorContext context)
         {
-            var path = context.FileSystem.GetDirectory(context.Path);
-            if (context.FileSystem.Exist(path.Path))
+            var directory = context.FileSystem.GetDirectory(context.Path);
+            if (directory.Exists)
             {
-                foreach (var candidate in FindCandidates(path.Path, node, context, SearchScope.Current))
+                foreach (var candidate in FindCandidates(directory.Path, node, context, SearchScope.Current))
                 {
-                    context.Push(candidate.Path.FullPath.Substring(path.Path.FullPath.Length + 1));
+                    context.Push(candidate.Path.FullPath.Substring(directory.Path.FullPath.Length + 1));
                     if (node.Next != null)
                     {
                         node.Next.Accept(this, context);

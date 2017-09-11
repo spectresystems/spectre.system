@@ -14,7 +14,7 @@ namespace Spectre.System.Testing
     /// </summary>
     public sealed class FakeFile : IFile
     {
-        private readonly FakeFileSystemTree _tree;
+        private readonly FileSystemTree _tree;
 
         /// <summary>
         /// Gets the path to the file.
@@ -78,7 +78,7 @@ namespace Spectre.System.Testing
         /// <value>The content.</value>
         public byte[] Content { get; internal set; } = new byte[4096];
 
-        internal FakeFile(FakeFileSystemTree tree, FilePath path)
+        internal FakeFile(FileSystemTree tree, FilePath path)
         {
             _tree = tree;
             Path = path;

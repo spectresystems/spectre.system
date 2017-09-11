@@ -15,7 +15,7 @@ namespace Spectre.System.Testing
     [DebuggerDisplay("{Path,nq}")]
     public sealed class FakeDirectory : IDirectory
     {
-        private readonly FakeFileSystemTree _tree;
+        private readonly FileSystemTree _tree;
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="IFileSystemInfo" /> exists.
@@ -49,7 +49,7 @@ namespace Spectre.System.Testing
 
         internal FakeDirectoryContent Content { get; }
 
-        internal FakeDirectory(FakeFileSystemTree tree, DirectoryPath path)
+        internal FakeDirectory(FileSystemTree tree, DirectoryPath path)
         {
             _tree = tree;
             Path = path;

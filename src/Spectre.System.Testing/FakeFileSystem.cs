@@ -11,15 +11,22 @@ namespace Spectre.System.Testing
     /// </summary>
     public sealed class FakeFileSystem : IFileSystem
     {
-        private readonly FakeFileSystemTree _tree;
+        private readonly FakeFileProvider _fileProvider;
+        private readonly FakeDirectoryProvider _directoryProvider;
 
+        public IFileProvider File => _fileProvider;
+        public IDirectoryProvider Directory => _directoryProvider;
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="FakeFileSystem"/> class.
         /// </summary>
         /// <param name="environment">The environment.</param>
         public FakeFileSystem(IEnvironment environment)
         {
-            _tree = new FakeFileSystemTree(environment);
+            var tree = new FileSystemTree(environment);
+            
+            _fileProvider = new FakeFileProvider(tree);
+            _directoryProvider = new FakeDirectoryProvider(tree);
         }
 
         /// <summary>
@@ -29,7 +36,7 @@ namespace Spectre.System.Testing
         /// <returns>A <see cref="FakeFile"/> instance representing the specified path.</returns>
         public FakeFile GetFile(FilePath path)
         {
-            return _tree.FindFile(path) ?? new FakeFile(_tree, path);
+            return _fileProvider.Get(path);
         }
 
         /// <summary>
@@ -39,7 +46,7 @@ namespace Spectre.System.Testing
         /// <returns>A <see cref="FakeDirectory" /> instance representing the specified path.</returns>
         public FakeDirectory GetDirectory(DirectoryPath path)
         {
-            return _tree.FindDirectory(path) ?? new FakeDirectory(_tree, path);
+            return _directoryProvider.Get(path);
         }
 
         /// <summary>
