@@ -19,7 +19,7 @@
 
   <!-- StyleCop -->
   <PropertyGroup>
-    <CodeAnalysisRuleSet>../Spectre.System.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>../Spectre.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="../stylecop.json" Link="stylecop.json" />
