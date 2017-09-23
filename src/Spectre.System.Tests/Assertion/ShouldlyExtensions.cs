@@ -13,7 +13,7 @@ namespace Spectre.System.Tests
         {
             return obj;
         }
-        
+
         public static T And<T>(this T obj, Action<T> expression)
         {
             expression(obj);

@@ -17,7 +17,7 @@ namespace Spectre.System.Tests
                 .And(ex => ex.ParamName.ShouldBe(name))
                 .And(ex => ex.Message?.SplitLines()[0].ShouldBe(message));
         }
-        
+
         public static void ShouldBeArgumentNullException(this Exception exception, string name)
         {
             exception.ShouldNotBeNull();

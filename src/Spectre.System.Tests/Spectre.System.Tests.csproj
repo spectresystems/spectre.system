@@ -17,4 +17,16 @@
     <ProjectReference Include="..\Spectre.System\Spectre.System.csproj" />
     <ProjectReference Include="..\Spectre.System\Spectre.System.csproj" />
   </ItemGroup>
+
+  <!-- StyleCop -->
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>../Spectre.Test.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="../stylecop.json" Link="stylecop.json" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
 </Project>

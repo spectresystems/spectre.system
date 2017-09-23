@@ -13,7 +13,7 @@ namespace Spectre.System.Tests
     public static class PathAssertions
     {
         private static readonly PathComparer Comparer = new PathComparer(false);
-        
+
         public static void ShouldContainFilePath(this IEnumerable<Path> result, string path)
         {
             ContainsPath(result, new FilePath(path));
@@ -23,7 +23,7 @@ namespace Spectre.System.Tests
         {
             ContainsPath(result, new DirectoryPath(path));
         }
-        
+
         public static void ContainsPath<T>(IEnumerable<Path> paths, T expected)
             where T : Path
         {
