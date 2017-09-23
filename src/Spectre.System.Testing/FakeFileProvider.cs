@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿// Licensed to Spectre Systems AB under one or more agreements.
+// Spectre Systems AB licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
+using System.IO;
 using Spectre.System.IO;
 
 namespace Spectre.System.Testing

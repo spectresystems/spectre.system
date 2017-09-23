@@ -39,7 +39,7 @@ namespace Spectre.System.Tests.Unit.IO
             {
                 // Given
                 var path = new FilePath(fullPath);
-                
+
                 // When
                 var result = path.GetExtension();
 
@@ -55,7 +55,7 @@ namespace Spectre.System.Tests.Unit.IO
             {
                 // Given
                 var path = new FilePath("temp/hello.txt");
-                
+
                 // When
                 var result = path.GetDirectory();
 
@@ -68,7 +68,7 @@ namespace Spectre.System.Tests.Unit.IO
             {
                 // Given
                 var path = new FilePath("hello.txt");
-                
+
                 // When
                 var result = path.GetDirectory();
 
@@ -107,7 +107,7 @@ namespace Spectre.System.Tests.Unit.IO
                 // Then
                 result.FullPath.ShouldBe("temp/hello.txt");
             }
-            
+
             [Theory]
             [InlineData("")]
             [InlineData(".")]
@@ -155,7 +155,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                 // Then
                 result.FullPath.ShouldBe(expected);
-            }    
+            }
         }
 
         public sealed class TheGetFilenameMethod
@@ -267,7 +267,8 @@ namespace Spectre.System.Tests.Unit.IO
 
                     // Then
                     result.ShouldBeOfType<InvalidOperationException>()
-                        .And(ex => ex.Message.ShouldBe("Cannot make a file path absolute with a relative directory path."));
+                          .And(ex => ex.Message.ShouldBe(
+                                   "Cannot make a file path absolute with a relative directory path."));
                 }
 
                 [Fact]
@@ -339,7 +340,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
+                              .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
                     }
 
                     [WindowsFact]
@@ -366,7 +367,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
+                              .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
                     }
 
                     [WindowsFact]
@@ -380,7 +381,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
+                              .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
                     }
                 }
 
@@ -419,7 +420,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
+                              .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
                     }
 
                     [Fact]
@@ -446,7 +447,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
+                              .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
                     }
 
                     [Fact]
@@ -460,7 +461,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
+                              .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
                     }
                 }
             }
@@ -503,7 +504,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
+                              .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
                     }
 
                     [WindowsFact]
@@ -530,7 +531,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
+                              .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
                     }
 
                     [WindowsFact]
@@ -544,7 +545,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
+                              .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
                     }
                 }
 
@@ -584,7 +585,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
+                              .And(ex => ex.Message.ShouldBe("Paths must share a common prefix."));
                     }
 
                     [Fact]
@@ -611,7 +612,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
+                              .And(ex => ex.Message.ShouldBe("Source path must be an absolute path."));
                     }
 
                     [Fact]
@@ -625,7 +626,7 @@ namespace Spectre.System.Tests.Unit.IO
 
                         // Then
                         result.ShouldBeOfType<InvalidOperationException>()
-                            .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
+                              .And(ex => ex.Message.ShouldBe("Target path must be an absolute path."));
                     }
                 }
             }
