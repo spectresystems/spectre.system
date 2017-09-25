@@ -8,6 +8,7 @@ namespace Spectre.System.IO
 {
     public sealed class GlobberSettings
     {
+        public DirectoryPath Root { get; set; }
         public Func<IDirectory, bool> Predicate { get; set; }
         public PathComparer Comparer { get; set; }
     }

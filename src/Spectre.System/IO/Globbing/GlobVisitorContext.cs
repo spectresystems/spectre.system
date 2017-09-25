@@ -2,32 +2,37 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 
 namespace Spectre.System.IO.Globbing
 {
     internal sealed class GlobVisitorContext
     {
+        private readonly GlobberSettings _settings;
         private readonly LinkedList<string> _pathParts;
-
-        internal DirectoryPath Path { get; private set; }
 
         public IFileSystem FileSystem { get; }
         public IEnvironment Environment { get; }
-        public GlobberSettings Settings { get; }
+        public DirectoryPath Root { get; set; }
         public List<IFileSystemInfo> Results { get; }
+
+        internal DirectoryPath Path { get; private set; }
 
         public GlobVisitorContext(
             IFileSystem fileSystem,
             IEnvironment environment,
             GlobberSettings settings)
         {
+            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
             _pathParts = new LinkedList<string>();
 
-            FileSystem = fileSystem;
-            Environment = environment;
-            Settings = settings;
+            FileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+            Environment = environment ?? throw new ArgumentNullException(nameof(environment));
             Results = new List<IFileSystemInfo>();
+
+            Root = _settings.Root ?? environment.WorkingDirectory;
+            Root = Root.MakeAbsolute(environment);
         }
 
         public void AddResult(IFileSystemInfo path)
@@ -61,8 +66,8 @@ namespace Spectre.System.IO.Globbing
 
         public bool ShouldTraverse(IDirectory info)
         {
-            return Settings.Predicate == null ||
-                   Settings.Predicate(info);
+            return _settings.Predicate == null ||
+                   _settings.Predicate(info);
         }
     }
 }

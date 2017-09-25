@@ -66,8 +66,7 @@ namespace Spectre.System.IO.Globbing
         {
             // Push each path to the context.
             var pushedSegmentCount = 0;
-            var path = context.Environment.WorkingDirectory;
-            foreach (var segment in path.Segments)
+            foreach (var segment in context.Root.Segments)
             {
                 context.Push(segment);
                 pushedSegmentCount++;
