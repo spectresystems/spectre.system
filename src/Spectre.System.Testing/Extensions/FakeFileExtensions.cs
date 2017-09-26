@@ -44,6 +44,22 @@ namespace Spectre.System.Testing
         }
 
         /// <summary>
+        /// Sets the last write time of the provided file.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <param name="time">The last write time.</param>
+        /// <returns>The same <see cref="FakeFile"/> instance so that multiple calls can be chained.</returns>
+        public static FakeFile SetLastWriteTime(this FakeFile file, DateTime time)
+        {
+            if (file == null)
+            {
+                throw new ArgumentNullException(nameof(file));
+            }
+            file.LastWriteTime = time;
+            return file;
+        }
+
+        /// <summary>
         /// Gets the text content of the file (UTF-8 encoding).
         /// </summary>
         /// <param name="file">The file.</param>

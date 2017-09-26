@@ -2,6 +2,7 @@
 // Spectre Systems AB licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System;
 using System.IO;
 
 namespace Spectre.System.IO
@@ -21,6 +22,13 @@ namespace Spectre.System.IO
         /// <param name="path">The file path.</param>
         /// <value>The length of the file.</value>
         long GetLength(FilePath path);
+
+        /// <summary>
+        /// Gets the last write time of the file.
+        /// </summary>
+        /// <param name="path">The file path.</param>
+        /// <value>The last write time of the file.</value>
+        DateTime GetLastWriteTime(FilePath path);
 
         /// <summary>
         /// Gets or sets the file attributes.

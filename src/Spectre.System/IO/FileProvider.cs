@@ -2,6 +2,7 @@
 // Spectre Systems AB licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System;
 using System.IO;
 
 namespace Spectre.System.IO
@@ -15,44 +16,42 @@ namespace Spectre.System.IO
 
         public long GetLength(FilePath path)
         {
-            var file = Get(path);
-            return file.Length;
+            return Get(path).Length;
+        }
+
+        public DateTime GetLastWriteTime(FilePath path)
+        {
+            return Get(path).LastWriteTime;
         }
 
         public FileAttributes GetAttributes(FilePath path)
         {
-            var file = Get(path);
-            return file.Attributes;
+            return Get(path).Attributes;
         }
 
         public void SetAttributes(FilePath path, FileAttributes attributes)
         {
-            var file = Get(path);
-            file.Attributes = attributes;
+            Get(path).Attributes = attributes;
         }
 
         public void Copy(FilePath source, FilePath destination, bool overwrite)
         {
-            var file = Get(source);
-            file.Copy(destination, overwrite);
+            Get(source).Copy(destination, overwrite);
         }
 
         public void Move(FilePath source, FilePath destination)
         {
-            var file = Get(source);
-            file.Move(destination);
+            Get(source).Move(destination);
         }
 
         public void Delete(FilePath path)
         {
-            var file = Get(path);
-            file.Delete();
+            Get(path).Delete();
         }
 
         public Stream Open(FilePath path, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
         {
-            var file = Get(path);
-            return file.Open(fileMode, fileAccess, fileShare);
+            return Get(path).Open(fileMode, fileAccess, fileShare);
         }
     }
 }

@@ -16,15 +16,14 @@ namespace Spectre.System.IO
         Path IFileSystemInfo.Path => Path;
 
         public bool Exists => _file.Exists;
-
         public bool Hidden => (_file.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden;
-
         public long Length => _file.Length;
+        public DateTime LastWriteTime => _file.LastWriteTime;
 
         public FileAttributes Attributes
         {
-            get { return _file.Attributes; }
-            set { _file.Attributes = value; }
+            get => _file.Attributes;
+            set => _file.Attributes = value;
         }
 
         public File(FilePath path)

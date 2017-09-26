@@ -53,6 +53,12 @@ namespace Spectre.System.Testing
         public long Length { get; private set; }
 
         /// <summary>
+        /// Gets the last write time of the file.
+        /// </summary>
+        /// <value>The last write time of the file.</value>
+        public DateTime LastWriteTime { get; internal set; }
+
+        /// <summary>
         /// Gets or sets the file attributes.
         /// </summary>
         /// <value>The file attributes.</value>
@@ -68,8 +74,8 @@ namespace Spectre.System.Testing
         /// </value>
         public long ContentLength
         {
-            get { return Length; }
-            internal set { Length = value; }
+            get => Length;
+            internal set => Length = value;
         }
 
         /// <summary>
@@ -114,8 +120,7 @@ namespace Spectre.System.Testing
         /// <returns>A <see cref="Stream" /> to the file.</returns>
         public Stream Open(FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
         {
-            bool fileWasCreated;
-            var position = GetPosition(fileMode, out fileWasCreated);
+            var position = GetPosition(fileMode, out var fileWasCreated);
             if (fileWasCreated)
             {
                 _tree.CreateFile(this);

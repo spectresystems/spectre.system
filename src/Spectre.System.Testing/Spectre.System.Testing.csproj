@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
   <!-- Package-->
   <PropertyGroup>
     <PackageId>$(AssemblyName)</PackageId>
@@ -16,7 +15,6 @@
     <PackageTags>File System;IO;Globbing;Environment</PackageTags>
     <Description>Contains testing utilities for Spectre.System.</Description>
   </PropertyGroup>
-
   <!-- StyleCop -->
   <PropertyGroup>
     <CodeAnalysisRuleSet>../Spectre.ruleset</CodeAnalysisRuleSet>
@@ -27,7 +25,6 @@
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Spectre.System\Spectre.System.csproj" />
   </ItemGroup>

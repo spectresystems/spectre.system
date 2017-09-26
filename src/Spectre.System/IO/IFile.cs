@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System;
 using System.IO;
 
 namespace Spectre.System.IO
@@ -22,6 +23,12 @@ namespace Spectre.System.IO
         /// </summary>
         /// <value>The length of the file.</value>
         long Length { get; }
+
+        /// <summary>
+        /// Gets the last write time of the file.
+        /// </summary>
+        /// <value>The last write time of the file.</value>
+        DateTime LastWriteTime { get; }
 
         /// <summary>
         /// Gets or sets the file attributes.
