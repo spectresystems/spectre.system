@@ -44,12 +44,6 @@ Task("Package")
     .IsDependentOn("Run-Tests")
     .Does(() =>
 {
-    DotNetCorePack("./src/Spectre.System/Spectre.System.csproj", new DotNetCorePackSettings {
-        Configuration = "Release",
-        OutputDirectory = "./.artifacts",
-        MSBuildSettings = settings
-    });
-
     DotNetCorePack("./src/Spectre.System.sln", new DotNetCorePackSettings {
         Configuration = "Release",
         OutputDirectory = "./.artifacts",
