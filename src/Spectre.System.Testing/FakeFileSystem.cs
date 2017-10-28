@@ -48,25 +48,5 @@ namespace Spectre.System.Testing
         {
             return _directoryProvider.Get(path);
         }
-
-        /// <summary>
-        /// Gets a <see cref="IDirectory" /> instance representing the specified path.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns>A <see cref="IDirectory" /> instance representing the specified path.</returns>
-        IDirectory IFileSystem.GetDirectory(DirectoryPath path)
-        {
-            return GetDirectory(path);
-        }
-
-        /// <summary>
-        /// Gets a <see cref="IFile" /> instance representing the specified path.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns>A <see cref="IFile" /> instance representing the specified path.</returns>
-        IFile IFileSystem.GetFile(FilePath path)
-        {
-            return GetFile(path);
-        }
     }
 }

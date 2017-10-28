@@ -42,5 +42,27 @@ namespace Spectre.System.IO
             var directory = fileSystem.GetDirectory(path);
             return directory != null && directory.Exists;
         }
+
+        /// <summary>
+        /// Gets a <see cref="IFile" /> instance representing the specified path.
+        /// </summary>
+        /// <param name="fileSystem">The file system.</param>
+        /// <param name="path">The path.</param>
+        /// <returns>A <see cref="IFile" /> instance representing the specified path.</returns>
+        public static IFile GetFile(this IFileSystem fileSystem, FilePath path)
+        {
+            return fileSystem.File.Get(path);
+        }
+
+        /// <summary>
+        /// Gets a <see cref="IDirectory" /> instance representing the specified path.
+        /// </summary>
+        /// <param name="fileSystem">The file system.</param>
+        /// <param name="path">The path.</param>
+        /// <returns>A <see cref="IDirectory" /> instance representing the specified path.</returns>
+        public static IDirectory GetDirectory(this IFileSystem fileSystem, DirectoryPath path)
+        {
+            return fileSystem.Directory.Get(path);
+        }
     }
 }

@@ -1,5 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Patrik\.nuget\packages\xunit.runner.visualstudio\2.2.0\build\netcoreapp1.0\xunit.runner.reporters.netstandard15.dll" t="Include" />
+    <e p="C:\Users\Patrik\.nuget\packages\xunit.runner.visualstudio\2.2.0\build\netcoreapp1.0\xunit.runner.utility.netstandard15.dll" t="Include" />
+    <e p="C:\Users\Patrik\.nuget\packages\xunit.runner.visualstudio\2.2.0\build\netcoreapp1.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="C:\Users\Patrik\.Rider2017.2\system\resharper-host\local\Transient\ReSharperHost\v10\SolutionCaches\_Spectre.System.-1938064397.00" t="ExcludeRecursive" />
+    <e p="D:\Source\Git\spectre\spectre.system\src" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="spectre.system" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Environment.cs" t="Include" />
+        <e p="IEnvironment.cs" t="Include" />
+        <e p="IO" t="Include">
+          <e p="Directory.cs" t="Include" />
+          <e p="DirectoryPath.cs" t="Include" />
+          <e p="DirectoryProvider.cs" t="Include" />
+          <e p="File.cs" t="Include" />
+          <e p="FileExtension.cs" t="Include" />
+          <e p="FileExtensions.cs" t="Include" />
+          <e p="FilePath.cs" t="Include" />
+          <e p="FileProvider.cs" t="Include" />
+          <e p="FileSystem.cs" t="Include" />
+          <e p="FileSystemExtensions.cs" t="Include" />
+          <e p="Globber.cs" t="Include" />
+          <e p="GlobberExtensions.cs" t="Include" />
+          <e p="GlobberSettings.cs" t="Include" />
+          <e p="Globbing" t="Include">
+            <e p="GlobNode.cs" t="Include" />
+            <e p="GlobNodeRewriter.cs" t="Include" />
+            <e p="GlobNodeValidator.cs" t="Include" />
+            <e p="GlobParser.cs" t="Include" />
+            <e p="GlobParserContext.cs" t="Include" />
+            <e p="GlobToken.cs" t="Include" />
+            <e p="GlobTokenizer.cs" t="Include" />
+            <e p="GlobTokenKind.cs" t="Include" />
+            <e p="GlobVisitor.cs" t="Include" />
+            <e p="GlobVisitorContext.cs" t="Include" />
+            <e p="Nodes" t="Include">
+              <e p="CurrentSegment.cs" t="Include" />
+              <e p="MatchableNode.cs" t="Include" />
+              <e p="ParentSegment.cs" t="Include" />
+              <e p="PathSegment.cs" t="Include" />
+              <e p="RecursiveWildcardSegment.cs" t="Include" />
+              <e p="RelativeRoot.cs" t="Include" />
+              <e p="UnixRoot.cs" t="Include" />
+              <e p="WildcardSegment.cs" t="Include" />
+              <e p="WindowsRoot.cs" t="Include" />
+            </e>
+          </e>
+          <e p="IDirectory.cs" t="Include" />
+          <e p="IDirectoryProvider.cs" t="Include" />
+          <e p="IFile.cs" t="Include" />
+          <e p="IFileProvider.cs" t="Include" />
+          <e p="IFileSystem.cs" t="Include" />
+          <e p="IFileSystemInfo.cs" t="Include" />
+          <e p="IGlobber.cs" t="Include" />
+          <e p="Path.cs" t="Include" />
+          <e p="PathCollapser.cs" t="Include" />
+          <e p="PathComparer.cs" t="Include" />
+          <e p="RelativePathResolver.cs" t="Include" />
+          <e p="SearchScope.cs" t="Include" />
+          <e p="SpecialPath.cs" t="Include" />
+        </e>
+        <e p="IPlatform.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="Spectre.System.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Platform.cs" t="Include" />
+        <e p="PlatformExtensions.cs" t="Include" />
+        <e p="PlatformFamily.cs" t="Include" />
+        <e p="Spectre.System.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="Spectre.System.sln" t="IncludeFlat" />
+      <e p="Spectre.System.Testing" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Extensions" t="Include">
+          <e p="FakeDirectoryExtensions.cs" t="Include" />
+          <e p="FakeFileExtensions.cs" t="Include" />
+          <e p="FakeFileSystemExtensions.cs" t="Include" />
+        </e>
+        <e p="FakeDirectory.cs" t="Include" />
+        <e p="FakeDirectoryContent.cs" t="Include" />
+        <e p="FakeDirectoryProvider.cs" t="Include" />
+        <e p="FakeEnvironment.cs" t="Include" />
+        <e p="FakeFile.cs" t="Include" />
+        <e p="FakeFileProvider.cs" t="Include" />
+        <e p="FakeFileStream.cs" t="Include" />
+        <e p="FakeFileSystem.cs" t="Include" />
+        <e p="FakePlatform.cs" t="Include" />
+        <e p="FileSystemTree.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="Spectre.System.Testing.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Spectre.System.Testing.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="Spectre.System.Tests" t="IncludeRecursive">
+        <e p="Assertion" t="Include">
+          <e p="ExceptionAssertions.cs" t="Include" />
+          <e p="PathAssertions.cs" t="Include" />
+          <e p="ShouldlyExtensions.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Extensions" t="Include">
+          <e p="StringExtensions.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.0" t="Include">
+              <e p="Spectre.System.Tests.AssemblyInfo.cs" t="Include" />
+              <e p="Spectre.System.Tests.Program.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Spectre.System.Tests.csproj" t="IncludeRecursive" />
+        <e p="Unit" t="Include">
+          <e p="IO" t="Include">
+            <e p="DirectoryPathTests.cs" t="Include" />
+            <e p="FileExtensionsTests.cs" t="Include" />
+            <e p="FilePathTests.cs" t="Include" />
+            <e p="FileSystemExtensionsTest.cs" t="Include" />
+            <e p="GlobberTests.cs" t="Include" />
+            <e p="PathCollapserTests.cs" t="Include" />
+            <e p="PathComparerTests.cs" t="Include" />
+            <e p="PathTests.cs" t="Include" />
+          </e>
+          <e p="Testing" t="Include">
+            <e p="FakeFileSystemTests.cs" t="Include" />
+          </e>
+        </e>
+        <e p="WindowsFact.cs" t="Include" />
+        <e p="WindowsTheory.cs" t="Include" />
+      </e>
+      <e p="stylecop.json" t="Include" />
+    </e>
+  </component>
   <component name="RiderRiderContentModelStore">
     <excludedPaths />
   </component>
