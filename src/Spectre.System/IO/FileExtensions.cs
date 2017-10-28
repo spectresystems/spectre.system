@@ -74,31 +74,5 @@ namespace Spectre.System.IO
             }
             return file.Open(FileMode.Create, FileAccess.Write, FileShare.None);
         }
-
-        /// <summary>
-        /// Enumerates line in file
-        /// </summary>
-        /// <param name="file">The file to be read from.</param>
-        /// <param name="encoding">The encoding that is applied to the content of the file.</param>
-        /// <returns>A <see cref="IEnumerable{T}"/> of file line content</returns>
-        [global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
-        public static IEnumerable<string> ReadLines(this IFile file, global::System.Text.Encoding encoding)
-        {
-            if (file == null)
-            {
-                throw new ArgumentNullException(nameof(file));
-            }
-            using (var stream = file.OpenRead())
-            using (var reader = new StreamReader(stream, encoding))
-            {
-                var result = new List<string>();
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    result.Add(line);
-                }
-                return result;
-            }
-        }
     }
 }

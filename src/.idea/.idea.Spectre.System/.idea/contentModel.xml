@@ -20,6 +20,7 @@
           <e p="FileExtensions.cs" t="Include" />
           <e p="FilePath.cs" t="Include" />
           <e p="FileProvider.cs" t="Include" />
+          <e p="FileProviderExtensions.cs" t="Include" />
           <e p="FileSystem.cs" t="Include" />
           <e p="FileSystemExtensions.cs" t="Include" />
           <e p="Globber.cs" t="Include" />
