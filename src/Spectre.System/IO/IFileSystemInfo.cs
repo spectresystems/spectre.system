@@ -30,5 +30,10 @@ namespace Spectre.System.IO
         ///   <c>true</c> if the entry is hidden; otherwise, <c>false</c>.
         /// </value>
         bool Hidden { get; }
+
+        /// <summary>
+        /// Refreshes the state of the object.
+        /// </summary>
+        void Refresh();
     }
 }

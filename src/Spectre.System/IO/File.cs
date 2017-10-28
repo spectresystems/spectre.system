@@ -39,6 +39,7 @@ namespace Spectre.System.IO
                 throw new ArgumentNullException(nameof(destination));
             }
             _file.CopyTo(destination.FullPath, overwrite);
+            Refresh();
         }
 
         public void Move(FilePath destination)
@@ -48,11 +49,18 @@ namespace Spectre.System.IO
                 throw new ArgumentNullException(nameof(destination));
             }
             _file.MoveTo(destination.FullPath);
+            Refresh();
         }
 
         public void Delete()
         {
             _file.Delete();
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            _file.Refresh();
         }
 
         public Stream Open(FileMode fileMode, FileAccess fileAccess, FileShare fileShare)

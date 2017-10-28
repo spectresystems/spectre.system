@@ -83,6 +83,13 @@ namespace Spectre.System.Testing
         }
 
         /// <summary>
+        /// Refreshes the state of the directory.
+        /// </summary>
+        public void Refresh()
+        {
+        }
+
+        /// <summary>
         /// Gets directories matching the specified filter and scope.
         /// </summary>
         /// <param name="filter">The filter.</param>

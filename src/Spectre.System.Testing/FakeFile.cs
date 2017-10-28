@@ -112,6 +112,13 @@ namespace Spectre.System.Testing
         }
 
         /// <summary>
+        /// Refreshes the state of the file.
+        /// </summary>
+        public void Refresh()
+        {
+        }
+
+        /// <summary>
         /// Opens the file using the specified options.
         /// </summary>
         /// <param name="fileMode">The file mode.</param>

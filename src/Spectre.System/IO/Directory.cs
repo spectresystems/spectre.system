@@ -30,6 +30,7 @@ namespace Spectre.System.IO
         public void Create()
         {
             _directory.Create();
+            Refresh();
         }
 
         public void Move(DirectoryPath destination)
@@ -39,11 +40,18 @@ namespace Spectre.System.IO
                 throw new ArgumentNullException(nameof(destination));
             }
             _directory.MoveTo(destination.FullPath);
+            Refresh();
         }
 
         public void Delete(bool recursive)
         {
             _directory.Delete(recursive);
+            Refresh();
+        }
+
+        public void Refresh()
+        {
+            _directory.Refresh();
         }
 
         public IEnumerable<IDirectory> GetDirectories(string filter, SearchScope scope)
