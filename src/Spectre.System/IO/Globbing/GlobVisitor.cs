@@ -22,14 +22,14 @@ namespace Spectre.System.IO.Globbing
 
         public IEnumerable<IFileSystemInfo> Walk(GlobNode node, GlobberSettings settings)
         {
-            var context = new GlobVisitorContext(_fileSystem, _environment, settings);
+            var context = new GlobVisitorContext(_environment, settings);
             node.Accept(this, context);
             return context.Results;
         }
 
         public void VisitRecursiveWildcardSegment(RecursiveWildcardSegment node, GlobVisitorContext context)
         {
-            var directory = context.FileSystem.GetDirectory(context.Path);
+            var directory = _fileSystem.GetDirectory(context.Path);
             if (directory.Exists)
             {
                 // Check if folders match.
@@ -91,7 +91,7 @@ namespace Spectre.System.IO.Globbing
                 // Get a directory that matches this segment.
                 // This might be a file but we can't be sure so we need to check.
                 var directoryPath = context.Path.Combine(segment);
-                var directory = context.FileSystem.GetDirectory(directoryPath);
+                var directory = _fileSystem.GetDirectory(directoryPath);
 
                 // Should we not traverse this directory?
                 if (directory.Exists && !context.ShouldTraverse(directory))
@@ -110,7 +110,7 @@ namespace Spectre.System.IO.Globbing
                     {
                         // Then it must be a file (if it exist).
                         var filePath = context.Path.CombineWithFilePath(segment);
-                        var file = context.FileSystem.GetFile(filePath);
+                        var file = _fileSystem.GetFile(filePath);
                         if (file.Exists)
                         {
                             // File
@@ -130,7 +130,7 @@ namespace Spectre.System.IO.Globbing
             {
                 if (node.Tokens.Count > 1)
                 {
-                    var path = context.FileSystem.GetDirectory(context.Path);
+                    var path = _fileSystem.GetDirectory(context.Path);
                     if (path.Exists)
                     {
                         foreach (var candidate in FindCandidates(path.Path, node, context, SearchScope.Current))
@@ -160,7 +160,7 @@ namespace Spectre.System.IO.Globbing
 
         public void VisitWildcardSegmentNode(WildcardSegment node, GlobVisitorContext context)
         {
-            var directory = context.FileSystem.GetDirectory(context.Path);
+            var directory = _fileSystem.GetDirectory(context.Path);
             if (directory.Exists)
             {
                 foreach (var candidate in FindCandidates(directory.Path, node, context, SearchScope.Current))
@@ -202,7 +202,7 @@ namespace Spectre.System.IO.Globbing
             node.Next.Accept(this, context);
         }
 
-        private static IEnumerable<IFileSystemInfo> FindCandidates(
+        private IEnumerable<IFileSystemInfo> FindCandidates(
             DirectoryPath path,
             MatchableNode node,
             GlobVisitorContext context,
@@ -211,7 +211,7 @@ namespace Spectre.System.IO.Globbing
             bool includeDirectories = true)
         {
             var result = new List<IFileSystemInfo>();
-            var current = context.FileSystem.GetDirectory(path);
+            var current = _fileSystem.GetDirectory(path);
 
             // Directories
             if (includeDirectories)

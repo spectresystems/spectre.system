@@ -23,8 +23,7 @@ namespace Spectre.System.IO
             {
                 throw new ArgumentNullException(nameof(fileSystem));
             }
-            var file = fileSystem.GetFile(path);
-            return file != null && file.Exists;
+            return fileSystem.File.Exists(path);
         }
 
         /// <summary>
@@ -39,8 +38,7 @@ namespace Spectre.System.IO
             {
                 throw new ArgumentNullException(nameof(fileSystem));
             }
-            var directory = fileSystem.GetDirectory(path);
-            return directory != null && directory.Exists;
+            return fileSystem.Directory.Exists(path);
         }
 
         /// <summary>

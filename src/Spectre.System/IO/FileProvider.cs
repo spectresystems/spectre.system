@@ -14,6 +14,11 @@ namespace Spectre.System.IO
             return new File(path);
         }
 
+        public bool Exists(FilePath path)
+        {
+            return Get(path).Exists;
+        }
+
         public long GetLength(FilePath path)
         {
             return Get(path).Length;

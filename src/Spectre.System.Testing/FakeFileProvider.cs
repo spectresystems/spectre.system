@@ -22,6 +22,11 @@ namespace Spectre.System.Testing
             return _tree.FindFile(path) ?? new FakeFile(_tree, path);
         }
 
+        public bool Exists(FilePath path)
+        {
+            return Get(path).Exists;
+        }
+
         IFile IFileProvider.Get(FilePath path)
         {
             return Get(path);

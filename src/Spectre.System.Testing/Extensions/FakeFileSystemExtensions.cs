@@ -37,6 +37,28 @@ namespace Spectre.System.Testing
         }
 
         /// <summary>
+        /// Ensures that the specified directory does not exist.
+        /// </summary>
+        /// <param name="fileSystem">The file system.</param>
+        /// <param name="path">The path.</param>
+        public static void EnsureDirectoryDoesNotExist(this FakeFileSystem fileSystem, DirectoryPath path)
+        {
+            if (fileSystem == null)
+            {
+                throw new ArgumentNullException(nameof(fileSystem));
+            }
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+            var file = fileSystem.GetDirectory(path);
+            if (file != null && file.Exists)
+            {
+                file.Delete(true);
+            }
+        }
+
+        /// <summary>
         /// Creates a file at the specified path.
         /// </summary>
         /// <param name="fileSystem">The file system.</param>

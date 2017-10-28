@@ -12,23 +12,18 @@ namespace Spectre.System.IO.Globbing
         private readonly GlobberSettings _settings;
         private readonly LinkedList<string> _pathParts;
 
-        public IFileSystem FileSystem { get; }
-        public IEnvironment Environment { get; }
         public DirectoryPath Root { get; set; }
         public List<IFileSystemInfo> Results { get; }
 
         internal DirectoryPath Path { get; private set; }
 
         public GlobVisitorContext(
-            IFileSystem fileSystem,
             IEnvironment environment,
             GlobberSettings settings)
         {
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
             _pathParts = new LinkedList<string>();
 
-            FileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
-            Environment = environment ?? throw new ArgumentNullException(nameof(environment));
             Results = new List<IFileSystemInfo>();
 
             Root = _settings.Root ?? environment.WorkingDirectory;

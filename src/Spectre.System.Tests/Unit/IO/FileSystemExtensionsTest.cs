@@ -5,6 +5,7 @@
 using NSubstitute;
 using Shouldly;
 using Spectre.System.IO;
+using Spectre.System.Testing;
 using Xunit;
 
 namespace Spectre.System.Tests.Unit.IO
@@ -16,27 +17,11 @@ namespace Spectre.System.Tests.Unit.IO
             public sealed class WithFilePath
             {
                 [Fact]
-                public void Should_Return_False_If_File_System_Returned_Null()
-                {
-                    // Given
-                    var fileSystem = Substitute.For<IFileSystem>();
-                    fileSystem.GetFile(Arg.Any<FilePath>()).Returns((IFile)null);
-
-                    // When
-                    var result = fileSystem.Exist((FilePath)"file.txt");
-
-                    // Then
-                    result.ShouldBeFalse();
-                }
-
-                [Fact]
                 public void Should_Return_False_If_File_Do_Not_Exist()
                 {
                     // Given
-                    var fileSystem = Substitute.For<IFileSystem>();
-                    var file = Substitute.For<IFile>();
-                    file.Exists.Returns(false);
-                    fileSystem.GetFile(Arg.Any<FilePath>()).Returns(file);
+                    var fileSystem = new FakeFileSystem(new FakeEnvironment(PlatformFamily.Linux));
+                    fileSystem.EnsureFileDoesNotExist("file.txt");
 
                     // When
                     var result = fileSystem.Exist((FilePath)"file.txt");
@@ -49,10 +34,8 @@ namespace Spectre.System.Tests.Unit.IO
                 public void Should_Return_True_If_File_Exist()
                 {
                     // Given
-                    var fileSystem = Substitute.For<IFileSystem>();
-                    var file = Substitute.For<IFile>();
-                    file.Exists.Returns(true);
-                    fileSystem.GetFile(Arg.Any<FilePath>()).Returns(file);
+                    var fileSystem = new FakeFileSystem(new FakeEnvironment(PlatformFamily.Linux));
+                    fileSystem.CreateFile("file.txt");
 
                     // When
                     var result = fileSystem.Exist((FilePath)"file.txt");
@@ -65,27 +48,11 @@ namespace Spectre.System.Tests.Unit.IO
             public sealed class WithDirectoryPath
             {
                 [Fact]
-                public void Should_Return_False_If_File_System_Returned_Null()
-                {
-                    // Given
-                    var fileSystem = Substitute.For<IFileSystem>();
-                    fileSystem.GetDirectory(Arg.Any<DirectoryPath>()).Returns((IDirectory)null);
-
-                    // When
-                    var result = fileSystem.Exist((DirectoryPath)"/Target");
-
-                    // Then
-                    result.ShouldBeFalse();
-                }
-
-                [Fact]
                 public void Should_Return_False_If_Directory_Do_Not_Exist()
                 {
                     // Given
-                    var fileSystem = Substitute.For<IFileSystem>();
-                    var directory = Substitute.For<IDirectory>();
-                    directory.Exists.Returns(false);
-                    fileSystem.GetDirectory(Arg.Any<DirectoryPath>()).Returns(directory);
+                    var fileSystem = new FakeFileSystem(new FakeEnvironment(PlatformFamily.Linux));
+                    fileSystem.EnsureDirectoryDoesNotExist("/Target");
 
                     // When
                     var result = fileSystem.Exist((DirectoryPath)"/Target");
@@ -98,10 +65,8 @@ namespace Spectre.System.Tests.Unit.IO
                 public void Should_Return_True_If_Directory_Exist()
                 {
                     // Given
-                    var fileSystem = Substitute.For<IFileSystem>();
-                    var directory = Substitute.For<IDirectory>();
-                    directory.Exists.Returns(true);
-                    fileSystem.GetDirectory(Arg.Any<DirectoryPath>()).Returns(directory);
+                    var fileSystem = new FakeFileSystem(new FakeEnvironment(PlatformFamily.Linux));
+                    fileSystem.CreateDirectory("/Target");
 
                     // When
                     var result = fileSystem.Exist((DirectoryPath)"/Target");

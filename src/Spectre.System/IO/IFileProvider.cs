@@ -17,6 +17,13 @@ namespace Spectre.System.IO
         IFile Get(FilePath path);
 
         /// <summary>
+        /// Gets whether or not the specified file exists.
+        /// </summary>
+        /// <param name="path">The file path.</param>
+        /// <returns><c>true</c> if the file exists; otherwise, <c>false</c>.</returns>
+        bool Exists(FilePath path);
+
+        /// <summary>
         /// Gets the length of the file.
         /// </summary>
         /// <param name="path">The file path.</param>
