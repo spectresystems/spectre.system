@@ -21,10 +21,10 @@ namespace Spectre.System.Tests.Unit.IO
                 {
                     // Given
                     var fileSystem = new FakeFileSystem(new FakeEnvironment(PlatformFamily.Linux));
-                    fileSystem.EnsureFileDoesNotExist("file.txt");
+                    fileSystem.EnsureFileDoesNotExist(new FilePath("file.txt"));
 
                     // When
-                    var result = fileSystem.Exist((FilePath)"file.txt");
+                    var result = fileSystem.Exist(new FilePath("file.txt"));
 
                     // Then
                     result.ShouldBeFalse();
@@ -35,10 +35,10 @@ namespace Spectre.System.Tests.Unit.IO
                 {
                     // Given
                     var fileSystem = new FakeFileSystem(new FakeEnvironment(PlatformFamily.Linux));
-                    fileSystem.CreateFile("file.txt");
+                    fileSystem.CreateFile(new FilePath("file.txt"));
 
                     // When
-                    var result = fileSystem.Exist((FilePath)"file.txt");
+                    var result = fileSystem.Exist(new FilePath("file.txt"));
 
                     // Then
                     result.ShouldBeTrue();
@@ -52,10 +52,10 @@ namespace Spectre.System.Tests.Unit.IO
                 {
                     // Given
                     var fileSystem = new FakeFileSystem(new FakeEnvironment(PlatformFamily.Linux));
-                    fileSystem.EnsureDirectoryDoesNotExist("/Target");
+                    fileSystem.EnsureDirectoryDoesNotExist(new DirectoryPath("/Target"));
 
                     // When
-                    var result = fileSystem.Exist((DirectoryPath)"/Target");
+                    var result = fileSystem.Exist(new DirectoryPath("/Target"));
 
                     // Then
                     result.ShouldBeFalse();
@@ -66,10 +66,10 @@ namespace Spectre.System.Tests.Unit.IO
                 {
                     // Given
                     var fileSystem = new FakeFileSystem(new FakeEnvironment(PlatformFamily.Linux));
-                    fileSystem.CreateDirectory("/Target");
+                    fileSystem.CreateDirectory(new DirectoryPath("/Target"));
 
                     // When
-                    var result = fileSystem.Exist((DirectoryPath)"/Target");
+                    var result = fileSystem.Exist(new DirectoryPath("/Target"));
 
                     // Then
                     result.ShouldBeTrue();

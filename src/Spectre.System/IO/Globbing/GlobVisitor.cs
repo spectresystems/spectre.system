@@ -90,7 +90,7 @@ namespace Spectre.System.IO.Globbing
 
                 // Get a directory that matches this segment.
                 // This might be a file but we can't be sure so we need to check.
-                var directoryPath = context.Path.Combine(segment);
+                var directoryPath = context.Path.Combine(new DirectoryPath(segment));
                 var directory = _fileSystem.GetDirectory(directoryPath);
 
                 // Should we not traverse this directory?
@@ -109,7 +109,7 @@ namespace Spectre.System.IO.Globbing
                     else
                     {
                         // Then it must be a file (if it exist).
-                        var filePath = context.Path.CombineWithFilePath(segment);
+                        var filePath = context.Path.CombineWithFilePath(new FilePath(segment));
                         var file = _fileSystem.GetFile(filePath);
                         if (file.Exists)
                         {

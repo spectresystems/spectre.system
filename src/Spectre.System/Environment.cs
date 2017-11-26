@@ -19,7 +19,7 @@ namespace Spectre.System
         /// <value>The working directory.</value>
         public DirectoryPath WorkingDirectory
         {
-            get => global::System.IO.Directory.GetCurrentDirectory();
+            get => new DirectoryPath(global::System.IO.Directory.GetCurrentDirectory());
             set => SetWorkingDirectory(value);
         }
 

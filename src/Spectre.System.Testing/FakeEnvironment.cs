@@ -46,12 +46,12 @@ namespace Spectre.System.Testing
             if (Platform.IsUnix())
             {
                 WorkingDirectory = new DirectoryPath("/Working");
-                ApplicationRoot = "/working/bin";
+                ApplicationRoot = new DirectoryPath("/working/bin");
             }
             else
             {
                 WorkingDirectory = new DirectoryPath("C:/Working");
-                ApplicationRoot = "C:/Working/bin";
+                ApplicationRoot = new DirectoryPath("C:/Working/bin");
             }
         }
 

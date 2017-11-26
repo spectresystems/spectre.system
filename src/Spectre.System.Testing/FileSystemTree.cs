@@ -33,7 +33,7 @@ namespace Spectre.System.Testing
             }
             Comparer = new PathComparer(environment.Platform.IsUnix());
 
-            _root = new FakeDirectory(this, "/");
+            _root = new FakeDirectory(this, new DirectoryPath("/"));
             _root.Create();
         }
 
@@ -57,7 +57,7 @@ namespace Spectre.System.Testing
                 var parent = current;
 
                 // Calculate the current path.
-                path = parent != null ? parent.Path.Combine(currentSegment) : new DirectoryPath(currentSegment);
+                path = parent != null ? parent.Path.Combine(new DirectoryPath(currentSegment)) : new DirectoryPath(currentSegment);
 
                 if (!children.Directories.ContainsKey(path))
                 {
@@ -190,7 +190,7 @@ namespace Spectre.System.Testing
 
                 // Calculate the current path.
                 var segment = queue.Dequeue();
-                path = parent != null ? parent.Path.Combine(segment) : new DirectoryPath(segment);
+                path = parent != null ? parent.Path.Combine(new DirectoryPath(segment)) : new DirectoryPath(segment);
 
                 // Find the current path.
                 if (!children.Directories.ContainsKey(path))

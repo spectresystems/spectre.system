@@ -215,7 +215,7 @@ namespace Spectre.System.Tests.Unit.IO
                 {
                     // Given
                     var environment = Substitute.For<IEnvironment>();
-                    environment.WorkingDirectory.Returns("/Working");
+                    environment.WorkingDirectory.Returns(new DirectoryPath("/Working"));
                     var path = new DirectoryPath("assets");
 
                     // When
@@ -263,7 +263,7 @@ namespace Spectre.System.Tests.Unit.IO
                     var path = new DirectoryPath("assets");
 
                     // When
-                    var result = Record.Exception(() => path.MakeAbsolute("Working"));
+                    var result = Record.Exception(() => path.MakeAbsolute(new DirectoryPath("Working")));
 
                     // Then
                     result.ShouldBeOfType<InvalidOperationException>()
@@ -277,7 +277,7 @@ namespace Spectre.System.Tests.Unit.IO
                     var path = new DirectoryPath("assets");
 
                     // When
-                    var result = path.MakeAbsolute("/absolute");
+                    var result = path.MakeAbsolute(new DirectoryPath("/absolute"));
 
                     // Then
                     result.FullPath.ShouldBe("/absolute/assets");
@@ -290,7 +290,7 @@ namespace Spectre.System.Tests.Unit.IO
                     var path = new DirectoryPath("/assets");
 
                     // When
-                    var result = path.MakeAbsolute("/absolute");
+                    var result = path.MakeAbsolute(new DirectoryPath("/absolute"));
 
                     // Then
                     result.FullPath.ShouldBe("/assets");

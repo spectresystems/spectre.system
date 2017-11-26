@@ -58,14 +58,14 @@ namespace Spectre.System.IO
         {
             var option = scope == SearchScope.Current ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
             return _directory.GetDirectories(filter, option)
-                .Select(directory => new Directory(directory.FullName));
+                .Select(directory => new Directory(new DirectoryPath(directory.FullName)));
         }
 
         public IEnumerable<IFile> GetFiles(string filter, SearchScope scope)
         {
             var option = scope == SearchScope.Current ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
             return _directory.GetFiles(filter, option)
-                .Select(file => new File(file.FullName));
+                .Select(file => new File(new FilePath(file.FullName)));
         }
     }
 }

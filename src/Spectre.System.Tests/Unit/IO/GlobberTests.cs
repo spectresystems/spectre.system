@@ -347,7 +347,7 @@ namespace Spectre.System.Tests.Unit.IO
             {
                 // Given
                 var fixture = new GlobberFixture();
-                fixture.SetWorkingDirectory("/Working/Foo");
+                fixture.SetWorkingDirectory(new DirectoryPath("/Working/Foo"));
 
                 // When
                 var result = fixture.Match("./Bar/Qux.c");
@@ -362,7 +362,7 @@ namespace Spectre.System.Tests.Unit.IO
             {
                 // Given
                 var fixture = new GlobberFixture();
-                fixture.SetWorkingDirectory("/Working/Foo");
+                fixture.SetWorkingDirectory(new DirectoryPath("/Working/Foo"));
 
                 // When
                 var result = fixture.Match("./Bar");
@@ -635,23 +635,23 @@ namespace Spectre.System.Tests.Unit.IO
                 FileSystem = new FakeFileSystem(Environment);
 
                 // Directories
-                FileSystem.CreateDirectory("C://Working");
-                FileSystem.CreateDirectory("C://Working/Foo");
-                FileSystem.CreateDirectory("C://Working/Foo/Bar");
-                FileSystem.CreateDirectory("C:");
-                FileSystem.CreateDirectory("C:/Program Files (x86)");
+                FileSystem.CreateDirectory(new DirectoryPath("C://Working"));
+                FileSystem.CreateDirectory(new DirectoryPath("C://Working/Foo"));
+                FileSystem.CreateDirectory(new DirectoryPath("C://Working/Foo/Bar"));
+                FileSystem.CreateDirectory(new DirectoryPath("C:"));
+                FileSystem.CreateDirectory(new DirectoryPath("C:/Program Files (x86)"));
 
                 // Files
-                FileSystem.CreateFile("C:/Working/Foo/Bar/Qux.c");
-                FileSystem.CreateFile("C:/Program Files (x86)/Foo.c");
-                FileSystem.CreateFile("C:/Working/Project.A.Test.dll");
-                FileSystem.CreateFile("C:/Working/Project.B.Test.dll");
-                FileSystem.CreateFile("C:/Working/Project.IntegrationTest.dll");
-                FileSystem.CreateFile("C:/Tools & Services/MyTool.dll");
-                FileSystem.CreateFile("C:/Tools + Services/MyTool.dll");
-                FileSystem.CreateFile("C:/Some %2F Directory/MyTool.dll");
-                FileSystem.CreateFile("C:/Some ! Directory/MyTool.dll");
-                FileSystem.CreateFile("C:/Some@Directory/MyTool.dll");
+                FileSystem.CreateFile(new FilePath("C:/Working/Foo/Bar/Qux.c"));
+                FileSystem.CreateFile(new FilePath("C:/Program Files (x86)/Foo.c"));
+                FileSystem.CreateFile(new FilePath("C:/Working/Project.A.Test.dll"));
+                FileSystem.CreateFile(new FilePath("C:/Working/Project.B.Test.dll"));
+                FileSystem.CreateFile(new FilePath("C:/Working/Project.IntegrationTest.dll"));
+                FileSystem.CreateFile(new FilePath("C:/Tools & Services/MyTool.dll"));
+                FileSystem.CreateFile(new FilePath("C:/Tools + Services/MyTool.dll"));
+                FileSystem.CreateFile(new FilePath("C:/Some %2F Directory/MyTool.dll"));
+                FileSystem.CreateFile(new FilePath("C:/Some ! Directory/MyTool.dll"));
+                FileSystem.CreateFile(new FilePath("C:/Some@Directory/MyTool.dll"));
             }
 
             private void PrepareUnixFixture()
@@ -660,31 +660,31 @@ namespace Spectre.System.Tests.Unit.IO
                 FileSystem = new FakeFileSystem(Environment);
 
                 // Directories
-                FileSystem.CreateDirectory("/Working");
-                FileSystem.CreateDirectory("/Working/Foo");
-                FileSystem.CreateDirectory("/Working/Foo/Bar");
-                FileSystem.CreateDirectory("/Working/Bar");
-                FileSystem.CreateDirectory("/Foo/Bar");
-                FileSystem.CreateDirectory("/Foo (Bar)");
-                FileSystem.CreateDirectory("/Foo@Bar/");
-                FileSystem.CreateDirectory("/嵌套");
-                FileSystem.CreateDirectory("/嵌套/目录");
+                FileSystem.CreateDirectory(new DirectoryPath("/Working"));
+                FileSystem.CreateDirectory(new DirectoryPath("/Working/Foo"));
+                FileSystem.CreateDirectory(new DirectoryPath("/Working/Foo/Bar"));
+                FileSystem.CreateDirectory(new DirectoryPath("/Working/Bar"));
+                FileSystem.CreateDirectory(new DirectoryPath("/Foo/Bar"));
+                FileSystem.CreateDirectory(new DirectoryPath("/Foo (Bar)"));
+                FileSystem.CreateDirectory(new DirectoryPath("/Foo@Bar/"));
+                FileSystem.CreateDirectory(new DirectoryPath("/嵌套"));
+                FileSystem.CreateDirectory(new DirectoryPath("/嵌套/目录"));
 
                 // Files
-                FileSystem.CreateFile("/Working/Foo/Bar/Qux.c");
-                FileSystem.CreateFile("/Working/Foo/Bar/Qex.c");
-                FileSystem.CreateFile("/Working/Foo/Bar/Qux.h");
-                FileSystem.CreateFile("/Working/Foo/Baz/Qux.c");
-                FileSystem.CreateFile("/Working/Foo/Bar/Baz/Qux.c");
-                FileSystem.CreateFile("/Working/Bar/Qux.c");
-                FileSystem.CreateFile("/Working/Bar/Qux.h");
-                FileSystem.CreateFile("/Working/Foo.Bar.Test.dll");
-                FileSystem.CreateFile("/Working/Bar.Qux.Test.dll");
-                FileSystem.CreateFile("/Working/Quz.FooTest.dll");
-                FileSystem.CreateFile("/Foo/Bar.baz");
-                FileSystem.CreateFile("/Foo (Bar)/Baz.c");
-                FileSystem.CreateFile("/Foo@Bar/Baz.c");
-                FileSystem.CreateFile("/嵌套/目录/文件.延期");
+                FileSystem.CreateFile(new FilePath("/Working/Foo/Bar/Qux.c"));
+                FileSystem.CreateFile(new FilePath("/Working/Foo/Bar/Qex.c"));
+                FileSystem.CreateFile(new FilePath("/Working/Foo/Bar/Qux.h"));
+                FileSystem.CreateFile(new FilePath("/Working/Foo/Baz/Qux.c"));
+                FileSystem.CreateFile(new FilePath("/Working/Foo/Bar/Baz/Qux.c"));
+                FileSystem.CreateFile(new FilePath("/Working/Bar/Qux.c"));
+                FileSystem.CreateFile(new FilePath("/Working/Bar/Qux.h"));
+                FileSystem.CreateFile(new FilePath("/Working/Foo.Bar.Test.dll"));
+                FileSystem.CreateFile(new FilePath("/Working/Bar.Qux.Test.dll"));
+                FileSystem.CreateFile(new FilePath("/Working/Quz.FooTest.dll"));
+                FileSystem.CreateFile(new FilePath("/Foo/Bar.baz"));
+                FileSystem.CreateFile(new FilePath("/Foo (Bar)/Baz.c"));
+                FileSystem.CreateFile(new FilePath("/Foo@Bar/Baz.c"));
+                FileSystem.CreateFile(new FilePath("/嵌套/目录/文件.延期"));
             }
 
             public void SetWorkingDirectory(DirectoryPath path)

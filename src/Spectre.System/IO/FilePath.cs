@@ -147,16 +147,6 @@ namespace Spectre.System.IO
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="string"/> to <see cref="FilePath"/>.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <returns>A <see cref="FilePath"/>.</returns>
-        public static implicit operator FilePath(string path)
-        {
-            return FromString(path);
-        }
-
-        /// <summary>
         /// Performs a conversion from <see cref="string"/> to <see cref="FilePath"/>.
         /// </summary>
         /// <param name="path">The path.</param>
