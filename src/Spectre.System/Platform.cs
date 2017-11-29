@@ -2,7 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.Runtime.InteropServices;
+using Spectre.System.Polyfill;
 
 namespace Spectre.System
 {
@@ -16,13 +16,13 @@ namespace Spectre.System
 
         public Platform()
         {
-            Family = GetPlatformFamily();
-            Is64Bit = Is64BitOperativeSystem();
+            Family = EnvironmentHelper.GetPlatformFamily();
+            Is64Bit = EnvironmentHelper.Is64BitOperativeSystem();
         }
 
         public static bool IsUnix()
         {
-            return IsUnix(GetPlatformFamily());
+            return IsUnix(EnvironmentHelper.GetPlatformFamily());
         }
 
         public static bool IsUnix(PlatformFamily family)
@@ -33,25 +33,12 @@ namespace Spectre.System
 
         public static bool Is64BitOperativeSystem()
         {
-            return RuntimeInformation.OSArchitecture == Architecture.X64
-                   || RuntimeInformation.OSArchitecture == Architecture.Arm64;
+            return EnvironmentHelper.Is64BitOperativeSystem();
         }
 
         public static PlatformFamily GetPlatformFamily()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                return PlatformFamily.OSX;
-            }
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                return PlatformFamily.Linux;
-            }
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                return PlatformFamily.Windows;
-            }
-            return PlatformFamily.Unknown;
+            return EnvironmentHelper.GetPlatformFamily();
         }
     }
 }
