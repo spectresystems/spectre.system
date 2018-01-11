@@ -64,8 +64,23 @@ namespace Spectre.System.IO
         public IEnumerable<IFile> GetFiles(string filter, SearchScope scope)
         {
             var option = scope == SearchScope.Current ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
-            return _directory.GetFiles(filter, option)
+            IEnumerable<IFile> files = _directory.GetFiles(filter, SearchOption.TopDirectoryOnly)
                 .Select(file => new File(new FilePath(file.FullName)));
+
+            if (option == SearchOption.TopDirectoryOnly)
+            {
+                return files;
+            }
+
+            var directories = _directory.GetDirectories().Where(d => d.Attributes.HasFlag(FileAttributes.ReparsePoint) == false)
+                .Select(dir => new Directory(new DirectoryPath(dir.FullName)));
+
+            foreach (var directory in directories)
+            {
+                files = files.Concat(directory.GetFiles(filter, scope));
+            }
+
+            return files;
         }
     }
 }
