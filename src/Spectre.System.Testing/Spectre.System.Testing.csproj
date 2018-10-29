@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
-  </PropertyGroup>
-  <!-- Package-->
-  <PropertyGroup>
     <PackageId>$(AssemblyName)</PackageId>
     <Copyright>Spectre Systems AB</Copyright>
     <Authors>Patrik Svensson</Authors>
@@ -15,6 +12,11 @@
     <PackageTags>File System;IO;Globbing;Environment</PackageTags>
     <Description>Contains testing utilities for Spectre.System.</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Spectre.System\Spectre.System.csproj" />
+  </ItemGroup>
+
   <!-- StyleCop -->
   <PropertyGroup>
     <CodeAnalysisRuleSet>../Spectre.ruleset</CodeAnalysisRuleSet>
@@ -24,8 +26,5 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Spectre.System\Spectre.System.csproj" />
   </ItemGroup>
 </Project>

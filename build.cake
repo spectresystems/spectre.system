@@ -1,60 +1,52 @@
-#load "./scripts/version.cake"
-#load "./scripts/msbuild.cake"
-#tool "nuget:https://www.nuget.org/api/v2?package=GitVersion.CommandLine&version=3.6.2"
+#load "nuget:?package=Spectre.Build&version=0.3.0"
 
-var configuration = Argument("configuration", "Release");
-var target = Argument("target", "Default");
+///////////////////////////////////////////////////////////////////////////////
+// TASKS
+///////////////////////////////////////////////////////////////////////////////
 
-var version = BuildVersion.Calculate(Context);
-var settings = MSBuildHelper.CreateSettings(version);
-
-Task("Clean")
-    .Does(() =>
+Task("Pack-NuGet")
+    .PartOf(SpectreTasks.Pack)
+    .Does<SpectreData>(data =>
 {
-    CleanDirectory("./.artifacts");
-});
-
-Task("Restore")
-    .IsDependentOn("Clean")
-    .Does(() =>
-{
-    DotNetCoreRestore("./src/Spectre.System.sln");
-});
-
-Task("Build")
-    .IsDependentOn("Restore")
-    .Does(() =>
-{
-    DotNetCoreBuild("./src/Spectre.System.sln", new DotNetCoreBuildSettings {
-        Configuration = "Release",
-        MSBuildSettings = settings
+    DotNetCorePack("./src/Spectre.System/Spectre.System.csproj", new DotNetCorePackSettings {
+        Configuration = data.Configuration,
+        OutputDirectory = data.Paths.NuGetPackages,
+        NoRestore = true,
+        NoBuild = true,
+        MSBuildSettings = new DotNetCoreMSBuildSettings()
+            .WithProperty("Version", data.Version.SemanticVersion)
+            .WithProperty("AssemblyVersion", data.Version.MajorMinorPatchRevision)
+            .WithProperty("FileVersion", data.Version.MajorMinorPatchRevision)
+            .WithProperty("PackageVersion", data.Version.SemanticVersion)
     });
 });
 
-Task("Run-Tests")
-    .IsDependentOn("Build")
-    .Does(() =>
+Task("Create-Release")
+    .WithCriteria<SpectreData>((context, data) => data.CI.IsLocal, "Not running locally")
+    .Does<SpectreData>((context, data) =>
 {
-    DotNetCoreTest("./src/Spectre.System.Tests/Spectre.System.Tests.csproj", new DotNetCoreTestSettings {
-        Configuration = "Release"
+    var username = context.Argument<string>("github-username", null);
+    var password = context.Argument<string>("github-password", null);
+
+    if (string.IsNullOrWhiteSpace(username) ||
+        string.IsNullOrWhiteSpace(password))
+    {
+        throw new InvalidOperationException("No GitHub credentials has been provided.");
+    }
+
+    context.GitReleaseManagerCreate(
+        username,
+        password,
+        "spectresystems", "spectre.system", 
+        new GitReleaseManagerCreateSettings {
+            Milestone = $"v{data.Version.MajorMinorPatch}",
+            Name = $"v{data.Version.MajorMinorPatch}",
+            TargetCommitish = "master"
     });
 });
 
-Task("Package")
-    .IsDependentOn("Run-Tests")
-    .Does(() =>
-{
-    DotNetCorePack("./src/Spectre.System.sln", new DotNetCorePackSettings {
-        Configuration = "Release",
-        OutputDirectory = "./.artifacts",
-        MSBuildSettings = settings
-    });
-});
+///////////////////////////////////////////////////////////////////////////////
+// EXECUTION
+///////////////////////////////////////////////////////////////////////////////
 
-Task("Default")
-    .IsDependentOn("Package");
-
-Task("AppVeyor")
-    .IsDependentOn("Default");
-
-RunTarget(target);
+Spectre.Build();

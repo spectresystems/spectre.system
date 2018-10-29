@@ -1,8 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0;net461</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
     <PackageReference Include="Castle.Core" Version="4.1.0" />
@@ -12,9 +14,9 @@
     <PackageReference Include="xunit.analyzers" Version="0.7.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\Spectre.System.Testing\Spectre.System.Testing.csproj" />
-    <ProjectReference Include="..\Spectre.System\Spectre.System.csproj" />
     <ProjectReference Include="..\Spectre.System\Spectre.System.csproj" />
   </ItemGroup>
 
